@@ -1,0 +1,65 @@
+"use client";
+
+import { useState } from "react";
+import dynamic from "next/dynamic";
+
+const Map = dynamic(() => import("./Map"), { ssr: false });
+
+const LOCATIONS = [
+  { name: "Noida", coords: [28.5355, 77.3910] },
+  { name: "Mukteshwar", coords: [29.4727, 79.6457] },
+  { name: "Delhi", coords: [28.6139, 77.2090] },
+  { name: "Gurugram", coords: [28.4595, 77.0266] },
+  { name: "Punjab", coords: [31.1471, 75.3412] },
+  { name: "Goa", coords: [15.2993, 74.1240] },
+];
+
+export default function Presence() {
+  const [activeCity, setActiveCity] = useState<string>("Mukteshwar");
+
+  return (
+    <section className="w-full bg-[#0F0F0F] pt-12 pb-0 md:pt-20">
+      <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center px-5">
+        <h2 className="text-center font-sans text-4xl md:text-[56px] leading-tight font-bold tracking-tight text-white mb-6">
+          A Presence That Continues To <span className="font-serif italic text-[#25975B] font-medium">Grow</span>
+        </h2>
+        <p className="max-w-[700px] text-center text-[15px] md:text-[17px] text-white/80 mb-10 leading-relaxed">
+          Every new location represents another partnership built on trust, thoughtful
+          design and uncompromising execution.
+        </p>
+
+        <div className="flex flex-wrap justify-center gap-3 mb-16">
+          {LOCATIONS.map((loc) => {
+            const isActive = loc.name === activeCity;
+            return (
+              <button
+                key={loc.name}
+                onClick={() => setActiveCity(loc.name)}
+                className={`rounded-full px-5 py-2 text-sm font-medium transition-colors cursor-pointer ${
+                  isActive
+                    ? "border border-white bg-transparent text-white"
+                    : "bg-white text-black hover:bg-gray-200"
+                }`}
+              >
+                {loc.name}
+              </button>
+            );
+          })}
+          <button className="flex items-center gap-1.5 rounded-full bg-[#25975B] px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-[#1e7a49]">
+            More
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      {/* Map Interactive Section */}
+      <div className="relative w-full">
+        <div className="relative w-full h-[548px] overflow-hidden z-0 mix-blend-luminosity">
+          <Map locations={LOCATIONS} activeCity={activeCity} />
+        </div>
+      </div>
+    </section>
+  );
+}

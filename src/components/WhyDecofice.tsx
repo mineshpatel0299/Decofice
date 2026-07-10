@@ -1,0 +1,160 @@
+import Image from "next/image";
+
+function Badge({ active, text }: { active?: boolean; text: string }) {
+  return (
+    <span
+      className={`whitespace-nowrap rounded-full px-2.5 py-1 text-[10px] font-medium transition-colors ${
+        active
+          ? "bg-white text-black font-semibold shadow-sm"
+          : "border border-white/20 text-white/70 hover:bg-white/10 hover:text-white"
+      }`}
+    >
+      {text}
+    </span>
+  );
+}
+
+export default function WhyDecofice() {
+  return (
+    <section className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#0F0F0F] py-24 font-sans">
+      {/* Central Glow */}
+      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[120vw] max-w-[1400px] -translate-x-1/2 -translate-y-1/2 rounded-[100%] bg-[#25975B] opacity-40 mix-blend-screen blur-[140px] md:h-[600px]" />
+      <div className="pointer-events-none absolute bottom-0 left-1/2 h-[400px] w-[120vw] max-w-[1400px] -translate-x-1/2 rounded-[100%] bg-[#30E988] opacity-50 mix-blend-screen blur-[150px]" />
+
+      {/* Huge Background Text */}
+      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center select-none">
+        <div
+          className="flex flex-col items-center text-center font-serif text-[128px] font-bold leading-[0.8] tracking-tighter"
+          style={{
+            background: "linear-gradient(180deg, #004C24 0%, #1A6E42 25%, #25975B 50%, #30E988 75%, #FFFFFF 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            opacity: 0.6
+          }}
+        >
+          <span className="pr-8 md:pr-16 lg:pr-32 xl:pr-48">One Vision.</span>
+          <span className="pl-16 md:pl-32 lg:pl-64 xl:pl-96">One Team.</span>
+        </div>
+      </div>
+
+      {/* Top Badge */}
+      <div className="relative z-10 mb-20 text-center">
+        <span className="inline-flex items-center gap-2 rounded-full bg-[#25975B] px-4 py-2 text-xs font-bold tracking-wider text-white uppercase shadow-[0_0_20px_rgba(37,151,91,0.4)]">
+          <span className="h-1.5 w-1.5 rounded-full bg-white shadow-[0_0_8px_2px_rgba(255,255,255,0.8)]" />
+          Why Decofice
+        </span>
+      </div>
+
+
+
+      {/* Cards Layout */}
+      <div className="relative z-10 mx-auto flex w-full flex-col justify-between gap-8 px-5 md:flex-row md:px-12 lg:gap-16 lg:px-24 xl:px-32">
+        
+        {/* Left Column */}
+        <div className="flex w-full flex-col gap-8 md:w-1/2 lg:gap-32">
+          {/* Card 1 */}
+          <div 
+            className="group relative mx-auto flex h-[233px] w-[364px] flex-col items-center justify-center gap-[16px] overflow-hidden rounded-[24px] border border-white/10 px-[24px] py-[14px] text-center shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] transition-all hover:border-white/20"
+            style={{
+              background: "linear-gradient(180deg, rgba(0,76,36,0.15) 0%, rgba(26,110,66,0.15) 25%, rgba(37,151,91,0.15) 50%, rgba(48,233,136,0.15) 75%, rgba(255,255,255,0.05) 100%)",
+              backdropFilter: "blur(24px)",
+              WebkitBackdropFilter: "blur(24px)"
+            }}
+          >
+            <h3 className="text-[24px] font-bold leading-snug text-[#30E988]">
+              Integrated <br /> Design & Build
+            </h3>
+            <p className="max-w-[280px] text-[16px] text-white/80">
+              Architecture, interiors and execution working together from day one.
+            </p>
+            <div className="flex w-full flex-nowrap items-center justify-center gap-1.5">
+              <Badge active text="Architecture" />
+              <Badge text="Interiors" />
+              <Badge text="Construction" />
+              <Badge text="PMC" />
+            </div>
+          </div>
+
+          {/* Card 2 */}
+          <div 
+            className="group relative mx-auto flex h-[233px] w-[364px] flex-col items-center justify-center gap-[16px] overflow-hidden rounded-[24px] border border-white/10 px-[24px] py-[14px] text-center shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] transition-all hover:border-white/20"
+            style={{
+              background: "linear-gradient(180deg, rgba(0,76,36,0.15) 0%, rgba(26,110,66,0.15) 25%, rgba(37,151,91,0.15) 50%, rgba(48,233,136,0.15) 75%, rgba(255,255,255,0.05) 100%)",
+              backdropFilter: "blur(24px)",
+              WebkitBackdropFilter: "blur(24px)"
+            }}
+          >
+            <h3 className="text-[24px] font-bold leading-snug text-[#3ccb7f]">
+              Precision <br /> Execution
+            </h3>
+            <p className="max-w-[280px] text-[16px] text-white/80">
+              Every detail planned and delivered with uncompromising quality.
+            </p>
+            <div className="flex w-full flex-nowrap items-center justify-center gap-1.5">
+              <Badge active text="Quality" />
+              <Badge text="Timeline" />
+              <Badge text="Craftsmanship" />
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column (Staggered) */}
+        <div className="mt-8 flex w-full flex-col gap-8 md:mt-24 md:w-1/2 lg:gap-32">
+          {/* Card 3 */}
+          <div 
+            className="group relative mx-auto flex h-[233px] w-[364px] flex-col items-center justify-center gap-[16px] overflow-hidden rounded-[24px] border border-white/10 px-[24px] py-[14px] text-center shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] transition-all hover:border-white/20"
+            style={{
+              background: "linear-gradient(180deg, rgba(0,76,36,0.15) 0%, rgba(26,110,66,0.15) 25%, rgba(37,151,91,0.15) 50%, rgba(48,233,136,0.15) 75%, rgba(255,255,255,0.05) 100%)",
+              backdropFilter: "blur(24px)",
+              WebkitBackdropFilter: "blur(24px)"
+            }}
+          >
+            <h3 className="text-[24px] font-bold leading-snug text-[#3ccb7f]">
+              Complete <br /> Accountability
+            </h3>
+            <p className="max-w-[280px] text-[16px] text-white/80">
+              One trusted partner throughout the entire project lifecycle.
+            </p>
+            <div className="flex w-full flex-nowrap items-center justify-center gap-1.5">
+              <Badge active text="One Team" />
+              <Badge text="One Process" />
+              <Badge text="One Responsibility" />
+            </div>
+          </div>
+
+          {/* Card 4 */}
+          <div 
+            className="group relative mx-auto flex h-[233px] w-[364px] flex-col items-center justify-center gap-[16px] overflow-hidden rounded-[24px] border border-white/10 px-[24px] py-[14px] text-center shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] transition-all hover:border-white/20"
+            style={{
+              background: "linear-gradient(180deg, rgba(0,76,36,0.15) 0%, rgba(26,110,66,0.15) 25%, rgba(37,151,91,0.15) 50%, rgba(48,233,136,0.15) 75%, rgba(255,255,255,0.05) 100%)",
+              backdropFilter: "blur(24px)",
+              WebkitBackdropFilter: "blur(24px)"
+            }}
+          >
+            <h3 className="text-[24px] font-bold leading-snug text-[#3ccb7f]">
+              Built Around Your <br /> Vision
+            </h3>
+            <p className="max-w-[280px] text-[16px] text-white/80">
+              Every solution is tailored to your goals and aspirations.
+            </p>
+            <div className="flex w-full flex-nowrap items-center justify-center gap-1.5">
+              <Badge active text="Customized" />
+              <Badge text="Flexible" />
+              <Badge text="Future Ready" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Dark Gradient to blend into the next section */}
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-[#0F0F0F] via-[#0F0F0F]/80 to-transparent" />
+
+      {/* Footer Text */}
+      <div className="relative z-10 mt-24 pb-12 text-center px-4">
+        <h3 className="text-lg font-medium text-white/90 sm:text-xl md:text-2xl">
+          Proof of what happens when vision meets execution.
+        </h3>
+      </div>
+    </section>
+  );
+}
