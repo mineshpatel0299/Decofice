@@ -143,35 +143,38 @@ export default function Hero() {
           >
             <div className="flex flex-nowrap gap-[0.42vw]">
               {FILTERS.map((filter, i) => (
-              <span
-                key={filter}
+              <button
+                key={filter.label}
+                type="button"
+                onClick={() => setActiveFilter(i)}
+                aria-pressed={i === activeFilter}
                 className={
-                  i === 0
-                    ? "shrink-0 rounded-full bg-white px-[0.83vw] py-[0.74vh] text-[0.73vw] font-medium whitespace-nowrap text-neutral-900"
-                    : "shrink-0 rounded-full border border-white/40 px-[0.83vw] py-[0.74vh] text-[0.73vw] font-medium whitespace-nowrap text-white"
+                  i === activeFilter
+                    ? "shrink-0 rounded-full bg-white px-[0.83vw] py-[0.74vh] text-[0.73vw] font-medium whitespace-nowrap text-neutral-900 transition-colors"
+                    : "shrink-0 rounded-full border border-white/40 px-[0.83vw] py-[0.74vh] text-[0.73vw] font-medium whitespace-nowrap text-white transition-colors hover:border-white"
                 }
               >
-                {filter}
-              </span>
+                {filter.label}
+              </button>
             ))}
           </div>
 
           <div className="flex items-center gap-[0.52vw]">
             <p className="max-w-[8.33vw] text-[1.04vw] leading-snug text-white">
-              Crafting escapes worth traveling for.
+              {active.caption}
             </p>
 
             <div className="relative h-[14.44vh] w-[12.14vw] shrink-0 overflow-hidden rounded-2xl">
               <Image
-                src="/hero.png"
-                alt="Resort pool at dusk"
+                src={active.image}
+                alt={active.alt}
                 fill
                 sizes="233px"
                 className="object-cover"
               />
               <button
                 type="button"
-                aria-label="View resorts"
+                aria-label={`View ${active.label}`}
                 className="group absolute bottom-[0.83vw] left-[0.83vw] flex h-[2.19vw] w-[2.19vw] items-center justify-center rounded-full text-white shadow-lg"
               >
                 <svg
@@ -200,7 +203,7 @@ export default function Hero() {
         fill
         preload
         sizes="100vw"
-        className="hidden object-cover lg:block"
+        className="pointer-events-none hidden object-cover lg:block"
         style={{
           zIndex: 20,
           transformOrigin: "0 0",
@@ -217,7 +220,7 @@ export default function Hero() {
         fill
         preload
         sizes="100vw"
-        className="object-cover lg:hidden"
+        className="pointer-events-none object-cover lg:hidden"
         style={{
           zIndex: 35,
           transformOrigin: "0 0",
@@ -236,8 +239,8 @@ export default function Hero() {
 
       <Navbar />
 
-      <div className="relative z-30 mx-auto flex min-h-screen max-w-[1800px] flex-col px-8 pt-[14.69vh] pb-16 sm:px-12 lg:pr-16 lg:pl-[11.67vw]">
-        <div className="flex flex-1 flex-col items-center justify-start pt-[5.87vh] text-center lg:items-start lg:text-left">
+      <div className="pointer-events-none relative z-30 mx-auto flex min-h-screen max-w-[1800px] flex-col px-8 pt-[14.69vh] pb-16 sm:px-12 lg:pr-16 lg:pl-[11.67vw]">
+        <div className="pointer-events-none flex flex-1 flex-col items-center justify-start pt-[5.87vh] text-center lg:items-start lg:text-left">
           <h1 className="font-serif text-6xl leading-[1.05] font-bold tracking-tight text-[#f5f0e6] sm:text-7xl lg:text-8xl">
             <span className="block overflow-hidden" style={{ paddingBottom: '0.1em', marginBottom: '-0.1em' }}>
               <span ref={textRef1} className="block translate-y-[100%]">Design.</span>
@@ -259,39 +262,42 @@ export default function Hero() {
               version above, tucked over the hero photo */}
           <div
             ref={mobileGlassCardRef}
-            className="mt-8 flex w-full max-w-sm flex-col gap-5 rounded-4xl border border-white/25 bg-white/5 p-5 opacity-0 shadow-2xl backdrop-blur-sm lg:hidden"
+            className="pointer-events-auto mt-8 flex w-full max-w-sm flex-col gap-5 rounded-4xl border border-white/25 bg-white/5 p-5 opacity-0 shadow-2xl backdrop-blur-sm lg:hidden"
           >
             <div className="flex flex-nowrap gap-1.5 overflow-x-auto scrollbar-none">
               {FILTERS.map((filter, i) => (
-                <span
-                  key={filter}
+                <button
+                  key={filter.label}
+                  type="button"
+                  onClick={() => setActiveFilter(i)}
+                  aria-pressed={i === activeFilter}
                   className={
-                    i === 0
-                      ? "shrink-0 rounded-full bg-white px-2.5 py-1.5 text-[11px] font-medium whitespace-nowrap text-neutral-900"
-                      : "shrink-0 rounded-full border border-white/40 px-2.5 py-1.5 text-[11px] font-medium whitespace-nowrap text-white"
+                    i === activeFilter
+                      ? "shrink-0 rounded-full bg-white px-2.5 py-1.5 text-[11px] font-medium whitespace-nowrap text-neutral-900 transition-colors"
+                      : "shrink-0 rounded-full border border-white/40 px-2.5 py-1.5 text-[11px] font-medium whitespace-nowrap text-white transition-colors hover:border-white"
                   }
                 >
-                  {filter}
-                </span>
+                  {filter.label}
+                </button>
               ))}
             </div>
 
             <div className="flex items-center gap-3">
               <p className="max-w-36 text-left text-sm leading-snug text-white">
-                Crafting escapes worth traveling for.
+                {active.caption}
               </p>
 
               <div className="relative h-24 w-28 shrink-0 overflow-hidden rounded-2xl">
                 <Image
-                  src="/hero.png"
-                  alt="Resort pool at dusk"
+                  src={active.image}
+                  alt={active.alt}
                   fill
                   sizes="112px"
                   className="object-cover"
                 />
                 <button
                   type="button"
-                  aria-label="View resorts"
+                  aria-label={`View ${active.label}`}
                   className="group absolute bottom-2 left-2 flex h-8 w-8 items-center justify-center rounded-full text-white shadow-lg"
                 >
                   <svg
@@ -310,7 +316,7 @@ export default function Hero() {
             </div>
           </div>
 
-          <div className="mt-8 flex w-full max-w-sm flex-col items-stretch gap-4 lg:mt-10 lg:w-auto lg:max-w-none lg:flex-row lg:flex-wrap lg:items-center">
+          <div className="pointer-events-auto mt-8 flex w-full max-w-sm flex-col items-stretch gap-4 lg:mt-10 lg:w-auto lg:max-w-none lg:flex-row lg:flex-wrap lg:items-center">
             <a
               href="#start"
               className="w-full rounded-full bg-[#25975B] px-8 py-4 text-center text-sm font-semibold text-white transition-colors hover:bg-[#456b52] lg:w-auto lg:rounded-lg"
