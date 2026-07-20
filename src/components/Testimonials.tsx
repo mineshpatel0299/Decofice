@@ -44,12 +44,10 @@ export default function Testimonials() {
       <div className="mx-auto w-full max-w-[1200px] px-5">
         <div className="flex flex-col items-center justify-center mb-16">
           {/* Badge */}
-          <div className="flex items-center gap-2 rounded-full bg-[#25975B] px-3 py-1 mb-8">
-            <div className="h-1.5 w-1.5 rounded-full bg-white"></div>
-            <span className="text-[10px] font-bold tracking-widest text-white uppercase">
-              TESTIMONIALS
-            </span>
-          </div>
+          <span className="mb-8 inline-flex items-center gap-2 rounded-full bg-[#25975B] px-4 py-2 text-xs font-bold tracking-wider text-white uppercase">
+            <span className="h-1.5 w-1.5 rounded-full bg-white" />
+            TESTIMONIALS
+          </span>
 
           {/* Heading */}
           <h2 className="mb-4 text-center font-sans text-4xl font-bold tracking-tight text-white md:text-[56px] leading-tight">

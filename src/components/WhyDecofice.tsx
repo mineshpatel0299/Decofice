@@ -17,23 +17,30 @@ function Badge({ active, text }: { active?: boolean; text: string }) {
 export default function WhyDecofice() {
   return (
     <section className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#0F0F0F] py-24 font-sans">
-      {/* Central Glow */}
+      {/* Central Glow (Faded a bit on top) */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[120vw] max-w-[1400px] -translate-x-1/2 -translate-y-1/2 rounded-[100%] bg-[#25975B] opacity-40 mix-blend-screen blur-[140px] md:h-[600px]" />
-      <div className="pointer-events-none absolute bottom-0 left-1/2 h-[400px] w-[120vw] max-w-[1400px] -translate-x-1/2 rounded-[100%] bg-[#30E988] opacity-50 mix-blend-screen blur-[150px]" />
+      
+      {/* Bottom Glow (Brighter at the bottom) */}
+      <div className="pointer-events-none absolute bottom-0 left-1/2 h-[500px] w-[120vw] max-w-[1600px] -translate-x-1/2 rounded-[100%] bg-[#30E988] opacity-95 mix-blend-screen blur-[140px]" />
+
+      {/* Very slight overlay behind the background text */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.2)_0%,transparent_50%)]" />
+
+      {/* Side Overlays (Left & Right) to darken the edges */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-64 bg-gradient-to-r from-[#0F0F0F] to-transparent z-10" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-64 bg-gradient-to-l from-[#0F0F0F] to-transparent z-10" />
 
       {/* Huge Background Text */}
       <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center select-none">
         <div
-          className="flex flex-col items-center text-center font-serif text-[128px] font-bold leading-[0.8] tracking-tighter"
-          style={{
-            background: "linear-gradient(180deg, #004C24 0%, #1A6E42 25%, #25975B 50%, #30E988 75%, #FFFFFF 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            opacity: 0.6
-          }}
+          className="flex flex-col items-center text-center font-serif text-[128px] leading-[0.8] tracking-tighter text-white mix-blend-overlay opacity-40"
         >
-          <span className="pr-8 md:pr-16 lg:pr-32 xl:pr-48">One Vision.</span>
-          <span className="pl-16 md:pl-32 lg:pl-64 xl:pl-96">One Team.</span>
+          <span className="pr-8 md:pr-16 lg:pr-32 xl:pr-48">
+            <span className="font-normal">One</span> <span className="font-black">Vision.</span>
+          </span>
+          <span className="pl-16 md:pl-32 lg:pl-64 xl:pl-96">
+            <span className="font-normal">One</span> <span className="font-black">Team.</span>
+          </span>
         </div>
       </div>
 
@@ -54,9 +61,8 @@ export default function WhyDecofice() {
         <div className="flex w-full flex-col gap-8 md:w-1/2 lg:gap-32">
           {/* Card 1 */}
           <div 
-            className="group relative mx-auto flex h-[233px] w-[364px] flex-col items-center justify-center gap-[16px] overflow-hidden rounded-[24px] border border-white/10 px-[24px] py-[14px] text-center shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] transition-all hover:border-white/20"
+            className="group relative mx-auto flex h-[233px] w-[364px] flex-col items-center justify-center gap-[16px] overflow-hidden rounded-[24px] border border-white/10 bg-black/40 px-[24px] py-[14px] text-center shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] transition-all"
             style={{
-              background: "linear-gradient(180deg, rgba(0,76,36,0.15) 0%, rgba(26,110,66,0.15) 25%, rgba(37,151,91,0.15) 50%, rgba(48,233,136,0.15) 75%, rgba(255,255,255,0.05) 100%)",
               backdropFilter: "blur(24px)",
               WebkitBackdropFilter: "blur(24px)"
             }}
@@ -77,9 +83,8 @@ export default function WhyDecofice() {
 
           {/* Card 2 */}
           <div 
-            className="group relative mx-auto flex h-[233px] w-[364px] flex-col items-center justify-center gap-[16px] overflow-hidden rounded-[24px] border border-white/10 px-[24px] py-[14px] text-center shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] transition-all hover:border-white/20"
+            className="group relative mx-auto flex h-[233px] w-[364px] flex-col items-center justify-center gap-[16px] overflow-hidden rounded-[24px] border border-white/10 bg-black/40 px-[24px] py-[14px] text-center shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] transition-all"
             style={{
-              background: "linear-gradient(180deg, rgba(0,76,36,0.15) 0%, rgba(26,110,66,0.15) 25%, rgba(37,151,91,0.15) 50%, rgba(48,233,136,0.15) 75%, rgba(255,255,255,0.05) 100%)",
               backdropFilter: "blur(24px)",
               WebkitBackdropFilter: "blur(24px)"
             }}
@@ -102,9 +107,8 @@ export default function WhyDecofice() {
         <div className="mt-8 flex w-full flex-col gap-8 md:mt-24 md:w-1/2 lg:gap-32">
           {/* Card 3 */}
           <div 
-            className="group relative mx-auto flex h-[233px] w-[364px] flex-col items-center justify-center gap-[16px] overflow-hidden rounded-[24px] border border-white/10 px-[24px] py-[14px] text-center shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] transition-all hover:border-white/20"
+            className="group relative mx-auto flex h-[233px] w-[364px] flex-col items-center justify-center gap-[16px] overflow-hidden rounded-[24px] border border-white/10 bg-black/60 px-[24px] py-[14px] text-center shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] transition-all"
             style={{
-              background: "linear-gradient(180deg, rgba(0,76,36,0.15) 0%, rgba(26,110,66,0.15) 25%, rgba(37,151,91,0.15) 50%, rgba(48,233,136,0.15) 75%, rgba(255,255,255,0.05) 100%)",
               backdropFilter: "blur(24px)",
               WebkitBackdropFilter: "blur(24px)"
             }}
@@ -124,9 +128,8 @@ export default function WhyDecofice() {
 
           {/* Card 4 */}
           <div 
-            className="group relative mx-auto flex h-[233px] w-[364px] flex-col items-center justify-center gap-[16px] overflow-hidden rounded-[24px] border border-white/10 px-[24px] py-[14px] text-center shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] transition-all hover:border-white/20"
+            className="group relative mx-auto flex h-[233px] w-[364px] flex-col items-center justify-center gap-[16px] overflow-hidden rounded-[24px] border border-white/10 bg-black/60 px-[24px] py-[14px] text-center shadow-[0_8px_32px_0_rgba(0,0,0,0.5)] transition-all"
             style={{
-              background: "linear-gradient(180deg, rgba(0,76,36,0.15) 0%, rgba(26,110,66,0.15) 25%, rgba(37,151,91,0.15) 50%, rgba(48,233,136,0.15) 75%, rgba(255,255,255,0.05) 100%)",
               backdropFilter: "blur(24px)",
               WebkitBackdropFilter: "blur(24px)"
             }}
@@ -146,8 +149,8 @@ export default function WhyDecofice() {
         </div>
       </div>
 
-      {/* Dark Gradient to blend into the next section */}
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-[#0F0F0F] via-[#0F0F0F]/80 to-transparent" />
+      {/* Subtle Dark Gradient to softly ground the section */}
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-56 bg-gradient-to-t from-[#0F0F0F] to-transparent" />
 
       {/* Footer Text */}
       <div className="relative z-10 mt-24 pb-12 text-center px-4">

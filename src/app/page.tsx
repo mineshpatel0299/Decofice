@@ -7,10 +7,12 @@ import Presence from "@/components/Presence";
 import VisitUs from "@/components/VisitUs";
 import Testimonials from "@/components/Testimonials";
 import Footer from "@/components/Footer";
+import Preloader from "@/components/Preloader";
 
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
+      <Preloader />
       <Hero />
       <CircularCarousel />
       <OurServices />

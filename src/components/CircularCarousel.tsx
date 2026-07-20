@@ -5,20 +5,20 @@ import gsap from "gsap";
 
 /* ---------------------------------- data --------------------------------- */
 
-type CardData = { id: number; title: string; desc: string; img: string };
+type CardData = { id: number; title: string; desc: string; tags: string[]; img: string };
 
 const CARDS: CardData[] = [
-  { id: 1,  title: "Beverage Branding",   desc: "Fresh and vibrant packaging design for premium juice products with natural ingredients", img: "https://images.unsplash.com/photo-1546548970-71785318a17b?w=600&h=800&fit=crop" },
-  { id: 2,  title: "Apparel Design",      desc: "Minimalist fashion collection with sustainable materials and modern aesthetics", img: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=600&h=800&fit=crop" },
-  { id: 3,  title: "Luxury Packaging",    desc: "Premium product packaging with attention to detail and sophisticated finishes", img: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=600&h=800&fit=crop" },
-  { id: 4,  title: "Cosmetics Brand",     desc: "Clean beauty brand identity with elegant and timeless design approach", img: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=600&h=800&fit=crop" },
-  { id: 5,  title: "Fashion Editorial",   desc: "Editorial photography and art direction for contemporary fashion magazine", img: "https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=600&h=800&fit=crop" },
-  { id: 6,  title: "Botanical Series",    desc: "Natural product line with organic ingredients and eco-friendly packaging", img: "https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=600&h=800&fit=crop" },
-  { id: 7,  title: "Product Photography", desc: "Professional product photography with creative lighting and composition", img: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=800&fit=crop" },
-  { id: 8,  title: "Streetwear Brand",    desc: "Urban fashion line with bold graphics and contemporary street style", img: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&h=800&fit=crop" },
-  { id: 9,  title: "Tech Accessories",    desc: "Minimalist tech product design with user-centered functionality", img: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=600&h=800&fit=crop" },
-  { id: 10, title: "Wellness Products",   desc: "Holistic wellness brand with natural and calming visual identity", img: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?w=600&h=800&fit=crop" },
-  { id: 11, title: "Home Decor",          desc: "Contemporary home accessories with Scandinavian design influence", img: "https://images.unsplash.com/photo-1564584217132-2271feaeb3c5?w=600&h=800&fit=crop" },
+  { id: 1,  title: "Residential Living",      desc: "Crafting homes that blend comfort, character and timeless design.", tags: ["Villas", "Farm Houses", "Bungalows", "Flats"], img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&h=800&fit=crop" },
+  { id: 2,  title: "Commercial Spaces",       desc: "Designing workspaces that inspire productivity and reflect brand identity.", tags: ["Offices", "Corporate Parks", "Co-working Spaces", "Retail Stores"], img: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=800&fit=crop" },
+  { id: 3,  title: "Hospitality & Resorts",   desc: "Creating memorable guest experiences through immersive design.", tags: ["Resorts", "Hotels", "Boutique Stays", "Restaurants"], img: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&h=800&fit=crop" },
+  { id: 4,  title: "Healthcare Facilities",   desc: "Building spaces that prioritize wellness, safety and accessibility.", tags: ["Hospitals", "Clinics", "Wellness Centers", "Diagnostic Labs"], img: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&h=800&fit=crop" },
+  { id: 5,  title: "Educational Institutes",  desc: "Shaping environments that nurture learning and creativity.", tags: ["Schools", "Colleges", "Libraries", "Training Centers"], img: "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&h=800&fit=crop" },
+  { id: 6,  title: "Retail & Showrooms",      desc: "Curating spaces that showcase products and elevate the shopping experience.", tags: ["Showrooms", "Boutiques", "Malls", "Flagship Stores"], img: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=800&fit=crop" },
+  { id: 7,  title: "Industrial & Warehousing", desc: "Engineering functional spaces built for efficiency and scale.", tags: ["Factories", "Warehouses", "Logistics Hubs", "Manufacturing Units"], img: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=600&h=800&fit=crop" },
+  { id: 8,  title: "Luxury Estates",          desc: "Designing statement homes with bespoke craftsmanship and scale.", tags: ["Mansions", "Penthouses", "Private Estates", "Vacation Homes"], img: "https://images.unsplash.com/photo-1613977257592-4871e5fcaf98?w=600&h=800&fit=crop" },
+  { id: 9,  title: "Institutional Buildings", desc: "Delivering civic and institutional spaces built to last generations.", tags: ["Government Buildings", "Community Centers", "Religious Spaces", "Auditoriums"], img: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=600&h=800&fit=crop" },
+  { id: 10, title: "Interior Renovations",    desc: "Reimagining existing spaces with fresh character and function.", tags: ["Home Makeovers", "Office Refits", "Heritage Restoration", "Space Optimization"], img: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&h=800&fit=crop" },
+  { id: 11, title: "Landscape & Outdoor",     desc: "Extending design beyond walls into gardens, courtyards and open spaces.", tags: ["Gardens", "Courtyards", "Rooftop Decks", "Poolside Spaces"], img: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=600&h=800&fit=crop" },
 ];
 
 const POSITIONS = [
@@ -42,6 +42,15 @@ const CARD_WIDTH = 320;
 const SLOT_GAP = 8;
 const SLOT_STEP = CARD_WIDTH + SLOT_GAP;
 const MAX_HEIGHT = Math.max(...POSITIONS.map((p) => p.height));
+// The center slot's card is shorter than the tallest side cards, so the track
+// (sized to fit the tallest cards) leaves empty space below the visible
+// center card. Pull the info panel up by that amount, minus the gap we
+// actually want, so it sits close to the cards instead of floating below them.
+const CENTER_CARD_HEIGHT = POSITIONS[CENTER_SLOT].height;
+const EMPTY_SPACE_BELOW_CENTER_CARD = (MAX_HEIGHT - CENTER_CARD_HEIGHT) / 2;
+const DESIRED_GAP_BELOW_CARDS = 24;
+const INFO_PANEL_MARGIN_TOP =
+  DESIRED_GAP_BELOW_CARDS - EMPTY_SPACE_BELOW_CENTER_CARD;
 
 /** Horizontal offset (px) of a slot from the centered wheel axis */
 const xFor = (slot: number) => (slot - CENTER_SLOT) * SLOT_STEP;
@@ -177,108 +186,130 @@ export default function CircularCarousel() {
           <span className="h-1.5 w-1.5 rounded-full bg-white" />
           Types of Projects
         </span>
-        <h2 className="font-opensans text-[64px] leading-[72px] font-bold whitespace-nowrap text-white">
+        <h2 className="font-opensans text-[28px] leading-8.5 font-bold text-white sm:text-4xl sm:leading-tight lg:whitespace-nowrap lg:text-[64px] lg:leading-18">
           Whatever You&apos;re Building,
         </h2>
-        <p className="font-serif text-[64px] leading-[72px] font-bold text-[#25975B] italic">
+        <p className="font-serif text-[28px] leading-8.5 font-bold text-[#25975B] italic sm:text-4xl sm:leading-tight lg:text-[64px] lg:leading-18">
           It Starts Here
         </p>
-        <p className="mx-auto mt-3 max-w-xl text-lg text-white/70">
+        <p className="mx-auto mt-3 max-w-xs text-sm text-white/70 sm:max-w-sm sm:text-base lg:max-w-xl lg:text-lg">
           The next image you see could be the beginning of your own project.
         </p>
         <a
           href="#consultation"
-          className="mt-5 inline-block rounded-lg bg-[#25975B] px-8 py-4 text-sm font-semibold text-white transition-colors hover:bg-[#1f7f4c]"
+          className="mt-4 inline-block rounded-lg bg-[#25975B] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1f7f4c] lg:mt-5 lg:px-8 lg:py-4"
         >
           Request A Consultation
         </a>
       </div>
 
       {/* Carousel + arrows + caption */}
-      <div className="relative -mt-16 w-full md:-mt-24">
-        {/* Prev */}
-        <button
-          type="button"
-          aria-label="Previous"
-          onClick={() => rotate("prev")}
-          className="absolute bottom-4 left-2 z-20 flex h-12 w-12 items-center justify-center rounded-full border border-[#25975B]/60 bg-[#0F0F0F] text-[#25975B] shadow-[0_8px_25px_rgba(0,0,0,0.4)] transition-all duration-300 hover:scale-110 hover:bg-[#25975B] hover:text-white md:left-6"
-        >
-          <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-            <path d="M15 6L9 12L15 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-
-        {/* Next */}
-        <button
-          type="button"
-          aria-label="Next"
-          onClick={() => rotate("next")}
-          className="absolute right-2 bottom-4 z-20 flex h-12 w-12 items-center justify-center rounded-full border border-[#25975B]/60 bg-[#0F0F0F] text-[#25975B] shadow-[0_8px_25px_rgba(0,0,0,0.4)] transition-all duration-300 hover:scale-110 hover:bg-[#25975B] hover:text-white md:right-6"
-        >
-          <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-            <path d="M9 6L15 12L9 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-
-        {/* Track */}
+      <div className="relative -mt-16 w-full [--cs:0.78] sm:[--cs:0.85] md:-mt-24 lg:[--cs:1]">
+        {/* Track + arrows — a dedicated positioning context sized exactly to
+            the track's own (scaled) height, so the arrows anchor to the
+            visible cards regardless of how tall the info panel below ends
+            up being. `--cs` (set on the ancestor above) shrinks the whole
+            3D wheel uniformly on small screens while staying 1 (a no-op) at
+            the lg breakpoint, so desktop is pixel-identical to before. */}
         <div
-          ref={containerRef}
-          className="w-full cursor-grab overflow-hidden [perspective:1500px] [perspective-origin:50%_50%]"
-          onMouseDown={(e) => onDragStart(e.clientX)}
-          onMouseMove={(e) => onDragMove(e.clientX)}
-          onMouseUp={onDragEnd}
-          onMouseLeave={onDragEnd}
-          onTouchStart={(e) => onDragStart(e.touches[0].clientX)}
-          onTouchMove={(e) => onDragMove(e.touches[0].clientX)}
-          onTouchEnd={onDragEnd}
+          className="relative w-full"
+          style={{ height: `calc(var(--cs) * ${MAX_HEIGHT}px)` }}
         >
-          <div
-            className="relative [transform-style:preserve-3d]"
-            style={{ height: MAX_HEIGHT }}
+          {/* Prev */}
+          <button
+            type="button"
+            aria-label="Previous"
+            onClick={() => rotate("prev")}
+            className="absolute top-1/2 left-2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#25975B]/60 bg-[#0F0F0F] text-[#25975B] shadow-[0_8px_25px_rgba(0,0,0,0.4)] transition-all duration-300 hover:scale-110 hover:bg-[#25975B] hover:text-white md:left-6 lg:top-auto lg:bottom-4 lg:translate-y-0"
           >
-            {order.map((id, slot) => {
-              const card = CARDS.find((c) => c.id === id)!;
-              const isCenter = slot === CENTER_SLOT;
-              return (
-                <div
-                  key={card.id}
-                  ref={(el) => {
-                    if (el) cardEls.current.set(card.id, el);
-                    else cardEls.current.delete(card.id);
-                  }}
-                  className={`absolute top-1/2 left-1/2 w-[320px] shrink-0 overflow-hidden bg-[#161616] [transform-style:preserve-3d] ${
-                    isCenter ? "z-10" : "z-0"
-                  }`}
-                >
-                  {/* Side edge shading */}
+            <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
+              <path d="M15 6L9 12L15 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+
+          {/* Next */}
+          <button
+            type="button"
+            aria-label="Next"
+            onClick={() => rotate("next")}
+            className="absolute top-1/2 right-2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-[#25975B]/60 bg-[#0F0F0F] text-[#25975B] shadow-[0_8px_25px_rgba(0,0,0,0.4)] transition-all duration-300 hover:scale-110 hover:bg-[#25975B] hover:text-white md:right-6 lg:top-auto lg:bottom-4 lg:translate-y-0"
+          >
+            <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
+              <path d="M9 6L15 12L9 18" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+
+          {/* Track */}
+          <div
+            ref={containerRef}
+            className="flex h-full w-full cursor-grab items-center justify-center overflow-hidden [perspective:1500px] [perspective-origin:50%_50%]"
+            onMouseDown={(e) => onDragStart(e.clientX)}
+            onMouseMove={(e) => onDragMove(e.clientX)}
+            onMouseUp={onDragEnd}
+            onMouseLeave={onDragEnd}
+            onTouchStart={(e) => onDragStart(e.touches[0].clientX)}
+            onTouchMove={(e) => onDragMove(e.touches[0].clientX)}
+            onTouchEnd={onDragEnd}
+          >
+            <div
+              className="relative w-full shrink-0 [transform-style:preserve-3d]"
+              style={{
+                height: MAX_HEIGHT,
+                transform: "scale(var(--cs))",
+                transformOrigin: "center center",
+              }}
+            >
+              {order.map((id, slot) => {
+                const card = CARDS.find((c) => c.id === id)!;
+                const isCenter = slot === CENTER_SLOT;
+                return (
                   <div
-                    className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 [transform:translateZ(-8px)]"
-                    aria-hidden
-                  />
-                  {/* Back panel + soft shadow */}
-                  <div
-                    className="pointer-events-none absolute inset-0 bg-[#161616] shadow-[0_0_40px_rgba(0,0,0,0.6)] [transform:translateZ(-16px)]"
-                    aria-hidden
-                  />
-                  <img
-                    src={card.img}
-                    alt={card.title}
-                    draggable={false}
-                    className="pointer-events-none relative z-[1] block h-full w-full object-cover"
-                  />
-                </div>
-              );
-            })}
+                    key={card.id}
+                    ref={(el) => {
+                      if (el) cardEls.current.set(card.id, el);
+                      else cardEls.current.delete(card.id);
+                    }}
+                    className={`absolute top-1/2 left-1/2 w-[320px] shrink-0 overflow-hidden bg-[#161616] [transform-style:preserve-3d] ${
+                      isCenter ? "z-10" : "z-0"
+                    }`}
+                  >
+                    {/* Side edge shading */}
+                    <div
+                      className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-black/30 [transform:translateZ(-8px)]"
+                      aria-hidden
+                    />
+                    {/* Back panel + soft shadow */}
+                    <div
+                      className="pointer-events-none absolute inset-0 bg-[#161616] shadow-[0_0_40px_rgba(0,0,0,0.6)] [transform:translateZ(-16px)]"
+                      aria-hidden
+                    />
+                    <img
+                      src={card.img}
+                      alt={card.title}
+                      draggable={false}
+                      className="pointer-events-none relative z-[1] block h-full w-full object-cover"
+                    />
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
 
         {/* Active card info */}
-        <div ref={infoRef} className="mt-10 text-center">
-          <h3 className="mb-3 text-2xl font-bold text-[#25975B] md:text-3xl">
+        <div
+          ref={infoRef}
+          className="px-4 text-center"
+          style={{ marginTop: `calc(var(--cs) * ${INFO_PANEL_MARGIN_TOP}px)` }}
+        >
+          <h3 className="mb-3 font-opensans text-lg leading-none font-semibold tracking-normal text-[#25975B] lg:text-[24px]">
             {centerCard.title}
           </h3>
-          <p className="mx-auto max-w-md text-base leading-relaxed text-white/70 md:text-lg">
+          <p className="mx-auto max-w-md font-opensans text-sm leading-snug font-normal tracking-normal text-white/70 lg:text-[16px] lg:leading-none">
             {centerCard.desc}
+          </p>
+          <p className="mt-4 font-opensans text-base leading-snug font-semibold tracking-normal text-white lg:text-[20px] lg:leading-none">
+            {centerCard.tags.join(" • ")}
           </p>
         </div>
       </div>

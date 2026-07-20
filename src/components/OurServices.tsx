@@ -92,7 +92,7 @@ export default function OurServices() {
               onMouseEnter={() => setActiveIndex(idx)}
               className={`group relative flex-none cursor-pointer overflow-hidden rounded-[24px] bg-[#0F0F0F] shadow-[0_0_40px_rgba(0,0,0,0.6)] transition-all duration-500 ease-out ${
                 idx !== 0 ? "-ml-[220px] md:-ml-[260px] lg:-ml-[250px]" : ""
-              } ${isActive ? "scale-105 md:scale-110 -translate-y-2 md:-translate-y-4" : "scale-100 hover:scale-105 translate-y-0"}`}
+              } ${isActive ? "scale-105 md:scale-110 -translate-y-2 md:-translate-y-4" : "scale-100 translate-y-0"}`}
               style={{ 
                 zIndex: isActive ? 50 : 40 - idx,
                 width: "415.7px",
@@ -107,7 +107,7 @@ export default function OurServices() {
                 className={`object-cover transition-all duration-500 ease-out ${
                   isActive
                     ? "grayscale-0 opacity-100"
-                    : "opacity-50 grayscale group-hover:opacity-75"
+                    : "opacity-50 grayscale"
                 }`}
               />
 
