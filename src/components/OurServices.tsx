@@ -1,7 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import Image from "next/image";
+import gsap from "gsap";
+import { Flip } from "gsap/Flip";
+
+gsap.registerPlugin(Flip);
 
 const SERVICES = [
   {
@@ -62,7 +66,33 @@ function ArrowRightIcon({ className }: { className?: string }) {
 }
 
 export default function OurServices() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [order, setOrder] = useState(() => SERVICES.map((service) => service.id));
+  const containerRef = useRef<HTMLDivElement>(null);
+  const flipStateRef = useRef<Flip.FlipState | null>(null);
+  const flipTweenRef = useRef<gsap.core.Tween | gsap.core.Timeline | null>(null);
+
+  const bringToFront = (id: number) => {
+    if (id === order[0]) return;
+    if (containerRef.current) {
+      flipStateRef.current = Flip.getState(containerRef.current.children);
+    }
+    setOrder((prev) => [id, ...prev.filter((cardId) => cardId !== id)]);
+  };
+
+  useLayoutEffect(() => {
+    if (!flipStateRef.current) return;
+    // Interrupt-safe: kill any tween still running from a rapid second click
+    // before starting the next one, so their transforms never fight.
+    flipTweenRef.current?.kill();
+    flipTweenRef.current = Flip.from(flipStateRef.current, {
+      duration: 0.9,
+      ease: "power4.inOut",
+      absolute: true,
+      onComplete: () => {
+        flipStateRef.current = null;
+      },
+    });
+  }, [order]);
 
   return (
     <section className="flex w-full flex-col items-center justify-center bg-[#0F0F0F] py-24 font-sans">
@@ -82,61 +112,76 @@ export default function OurServices() {
       </div>
 
       {/* Accordion Cards */}
-      <div className="mx-auto flex h-[500px] w-full max-w-7xl justify-start overflow-x-auto px-5 md:h-[586px] md:justify-center md:overflow-visible">
-        {SERVICES.map((service, idx) => {
-          const isActive = activeIndex === idx;
+      <div
+        ref={containerRef}
+        className="relative mx-auto flex h-[500px] w-full max-w-7xl justify-start overflow-x-auto px-5 md:h-[586px] md:justify-center md:overflow-visible"
+      >
+        {order.map((id, idx) => {
+          const service = SERVICES.find((s) => s.id === id)!;
+          const isActive = idx === 0;
           return (
+            // Outer element: owned by GSAP Flip, position/stacking only — no
+            // transform-based CSS transitions here, so Flip's slide never
+            // fights a competing CSS transform on the same node.
             <div
               key={service.id}
-              onClick={() => setActiveIndex(idx)}
-              onMouseEnter={() => setActiveIndex(idx)}
-              className={`group relative flex-none cursor-pointer overflow-hidden rounded-[24px] bg-[#0F0F0F] shadow-[0_0_40px_rgba(0,0,0,0.6)] transition-all duration-500 ease-out ${
+              onClick={() => bringToFront(service.id)}
+              className={`relative flex-none cursor-pointer ${
                 idx !== 0 ? "-ml-[220px] md:-ml-[260px] lg:-ml-[250px]" : ""
-              } ${isActive ? "scale-105 md:scale-110 -translate-y-2 md:-translate-y-4" : "scale-100 translate-y-0"}`}
-              style={{ 
-                zIndex: isActive ? 50 : 40 - idx,
+              }`}
+              style={{
+                zIndex: 50 - idx,
                 width: "415.7px",
                 maxWidth: "85vw"
               }}
             >
-              <Image
-                src={service.img}
-                alt={service.title}
-                fill
-                sizes="(max-width: 768px) 100vw, 800px"
-                className={`object-cover transition-all duration-500 ease-out ${
-                  isActive
-                    ? "grayscale-0 opacity-100"
-                    : "opacity-50 grayscale"
-                }`}
-              />
-
-              {/* Dark overlay for text readability on active card */}
+              {/* Inner element: owned by Tailwind, scale/lift + color
+                  transition only — always reflects "am I first?" so it can
+                  never drift out of sync with the stack order. */}
               <div
-                className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent transition-opacity duration-500 ease-out ${
-                  isActive ? "opacity-100" : "opacity-0"
-                }`}
-              />
-
-              {/* Text Content */}
-              <div
-                className={`absolute bottom-0 left-0 flex w-full flex-col items-start justify-end p-8 pb-4 transition-all duration-500 ease-out md:p-10 md:pb-6 lg:p-12 lg:pb-8 ${
-                  isActive ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
+                className={`group relative h-full w-full overflow-hidden rounded-[24px] bg-[#0F0F0F] shadow-[0_0_40px_rgba(0,0,0,0.6)] transition-transform duration-500 ease-out ${
+                  isActive ? "scale-105 md:scale-110 -translate-y-2 md:-translate-y-4" : "scale-100 translate-y-0"
                 }`}
               >
-                <h3 className="mb-1.5 font-opensans text-[24px] font-bold text-white">
-                  {service.title}
-                </h3>
-                <p className="mb-4 max-w-md text-[16px] text-white/85">
-                  {service.desc}
-                </p>
-                <button
-                  type="button"
-                  className="self-center inline-flex h-[48px] w-[351px] items-center justify-between rounded-[8px] bg-[#25975B] px-[28px] py-[12px] text-sm font-semibold text-white shadow-lg transition-colors hover:bg-[#1f7f4c] md:text-base"
+                <Image
+                  src={service.img}
+                  alt={service.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 800px"
+                  className={`object-cover transition-all duration-500 ease-out ${
+                    isActive
+                      ? "grayscale-0 opacity-100"
+                      : "opacity-50 grayscale"
+                  }`}
+                />
+
+                {/* Dark overlay for text readability on active card */}
+                <div
+                  className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent transition-opacity duration-500 ease-out ${
+                    isActive ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+
+                {/* Text Content */}
+                <div
+                  className={`absolute bottom-0 left-0 flex w-full flex-col items-start justify-end p-8 pb-4 transition-all duration-500 ease-out md:p-10 md:pb-6 lg:p-12 lg:pb-8 ${
+                    isActive ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
+                  }`}
                 >
-                  Talk To Our Team
-                  <ArrowRightIcon className="h-5 w-5" />
-                </button>
+                  <h3 className="mb-1.5 font-opensans text-[24px] font-bold text-white">
+                    {service.title}
+                  </h3>
+                  <p className="mb-4 max-w-md text-[16px] text-white/85">
+                    {service.desc}
+                  </p>
+                  <button
+                    type="button"
+                    className="self-center inline-flex h-[48px] w-[351px] items-center justify-between rounded-[8px] bg-[#25975B] px-[28px] py-[12px] text-sm font-semibold text-white shadow-lg transition-colors hover:bg-[#1f7f4c] md:text-base"
+                  >
+                    Talk To Our Team
+                    <ArrowRightIcon className="h-5 w-5" />
+                  </button>
+                </div>
               </div>
             </div>
           );

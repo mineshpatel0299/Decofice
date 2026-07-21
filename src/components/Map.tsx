@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Tooltip, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -58,7 +58,22 @@ export default function Map({ locations, activeCity }: { locations: any[]; activ
           key={loc.name}
           position={loc.coords}
           icon={loc.name === activeCity ? activeIcon : customIcon}
-        />
+        >
+          <Tooltip direction="top" offset={[0, -8]} opacity={1} className="location-tooltip">
+            <div className="w-40 overflow-hidden rounded-2xl border border-white/15 bg-[#0F0F0F] shadow-2xl">
+              <img
+                src={loc.image}
+                alt={loc.name}
+                width={160}
+                height={112}
+                className="h-28 w-full object-cover"
+              />
+              <p className="px-3 py-2 text-center text-sm font-semibold text-white">
+                {loc.name}
+              </p>
+            </div>
+          </Tooltip>
+        </Marker>
       ))}
       <MapController activeLocation={activeLocation} />
     </MapContainer>

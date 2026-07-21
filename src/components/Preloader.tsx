@@ -5,29 +5,71 @@ import gsap from "gsap";
 
 export default function Preloader() {
   const preloaderRef = useRef<HTMLDivElement>(null);
+  const logoRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
-    if (preloaderRef.current) {
-      // Automatically slide up after 2 seconds
-      gsap.to(preloaderRef.current, {
-        y: "-100%",
-        duration: 1.2,
-        ease: "power4.inOut",
-        delay: 2,
-      });
-    }
+    if (!preloaderRef.current || !logoRef.current) return;
+
+    // The logo svg sits at x/y = calc(50% - 75px), so its own center lands
+    // exactly at the viewport center. It lives inside a <mask>, though, and
+    // masked elements are never laid out on the page — so GSAP can't measure
+    // a bounding box to derive a percentage transformOrigin from, and falls
+    // back to (0,0), making the scale drift from the top-left instead of
+    // the center. svgOrigin sidesteps that by giving it an explicit,
+    // pre-computed center point instead of one it has to measure.
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    const svgOrigin = `${centerX} ${centerY}`;
+
+    // Big enough that the logo fully overtakes the viewport when zoomed
+    const maxDimension = Math.max(window.innerWidth, window.innerHeight);
+    const coverScale = (maxDimension / 150) * 2.5;
+
+    gsap.set(logoRef.current, { svgOrigin });
+
+    const tl = gsap.timeline({ delay: 0.3 });
+
+    // Logo pops in at its normal size, centered
+    tl.fromTo(
+      logoRef.current,
+      { scale: 0 },
+      { scale: 1, duration: 0.6, ease: "back.out(1.7)" }
+    )
+      // Hold briefly, then zoom the logo until it fills the whole screen
+      .to(logoRef.current, {
+        scale: coverScale,
+        duration: 1.6,
+        ease: "power2.in",
+        delay: 0.3,
+      })
+      // Cut to the homepage once the zoom has taken over the screen
+      .to(
+        preloaderRef.current,
+        {
+          opacity: 0,
+          duration: 0.4,
+          ease: "power1.out",
+          onComplete: () => {
+            if (preloaderRef.current) {
+              preloaderRef.current.style.display = "none";
+            }
+          },
+        },
+        "-=0.3"
+      );
   }, []);
 
   return (
     <div
       ref={preloaderRef}
-      className="fixed inset-0 z-[100] flex items-center justify-center pointer-events-none"
+      className="fixed inset-0 z-100 flex items-center justify-center pointer-events-none"
     >
       <svg width="100%" height="100%" className="absolute inset-0">
         <defs>
           <mask id="knockout-mask">
             <rect width="100%" height="100%" fill="white" />
             <svg
+              ref={logoRef}
               x="calc(50% - 75px)"
               y="calc(50% - 75px)"
               width="150"

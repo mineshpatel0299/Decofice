@@ -6,12 +6,36 @@ import dynamic from "next/dynamic";
 const Map = dynamic(() => import("./Map"), { ssr: false });
 
 const LOCATIONS = [
-  { name: "Noida", coords: [28.5355, 77.3910] },
-  { name: "Mukteshwar", coords: [29.4727, 79.6457] },
-  { name: "Delhi", coords: [28.6139, 77.2090] },
-  { name: "Gurugram", coords: [28.4595, 77.0266] },
-  { name: "Punjab", coords: [31.1471, 75.3412] },
-  { name: "Goa", coords: [15.2993, 74.1240] },
+  {
+    name: "Noida",
+    coords: [28.5355, 77.3910],
+    image: "https://images.unsplash.com/photo-1645938374927-d74b9349be51?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    name: "Mukteshwar",
+    coords: [29.4727, 79.6457],
+    image: "https://images.unsplash.com/photo-1562746446-ddeaf6a9be27?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    name: "Delhi",
+    coords: [28.6139, 77.2090],
+    image: "https://images.unsplash.com/photo-1662852742109-2c05a1274bf8?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    name: "Gurugram",
+    coords: [28.4595, 77.0266],
+    image: "https://images.unsplash.com/photo-1643194928486-f215bfb93fe7?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    name: "Punjab",
+    coords: [31.1471, 75.3412],
+    image: "https://images.unsplash.com/photo-1761924422461-2aad2800020b?q=80&w=800&auto=format&fit=crop",
+  },
+  {
+    name: "Goa",
+    coords: [15.2993, 74.1240],
+    image: "https://images.unsplash.com/photo-1558894930-0e1f89b9f0ce?q=80&w=800&auto=format&fit=crop",
+  },
 ];
 
 export default function Presence() {
@@ -56,7 +80,7 @@ export default function Presence() {
 
       {/* Map Interactive Section */}
       <div className="relative w-full">
-        <div className="relative w-full h-[548px] overflow-hidden z-0 mix-blend-luminosity">
+        <div className="relative w-full h-[548px] overflow-hidden z-0">
           <Map locations={LOCATIONS} activeCity={activeCity} />
         </div>
       </div>
