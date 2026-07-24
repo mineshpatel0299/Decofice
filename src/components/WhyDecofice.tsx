@@ -16,20 +16,10 @@ function Badge({ active, text }: { active?: boolean; text: string }) {
 
 export default function WhyDecofice() {
   return (
-    <section className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#0F0F0F] py-24 font-sans">
-      {/* Central Glow (Faded a bit on top) */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 h-[500px] w-[120vw] max-w-[1400px] -translate-x-1/2 -translate-y-1/2 rounded-[100%] bg-[#25975B] opacity-40 mix-blend-screen blur-[140px] md:h-[600px]" />
-      
-      {/* Bottom Glow (Brighter at the bottom) */}
-      <div className="pointer-events-none absolute bottom-0 left-1/2 h-[500px] w-[120vw] max-w-[1600px] -translate-x-1/2 rounded-[100%] bg-[#30E988] opacity-95 mix-blend-screen blur-[140px]" />
-
-      {/* Very slight overlay behind the background text */}
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.2)_0%,transparent_50%)]" />
-
-      {/* Side Overlays (Left & Right) to darken the edges */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-64 bg-gradient-to-r from-[#0F0F0F] to-transparent z-10" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-64 bg-gradient-to-l from-[#0F0F0F] to-transparent z-10" />
-
+    <section
+      className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#0F0F0F] bg-cover bg-center py-24 font-sans"
+      style={{ backgroundImage: "url('/bg.jpg')" }}
+    >
       {/* Huge Background Text */}
       <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center select-none">
         <div
@@ -148,9 +138,6 @@ export default function WhyDecofice() {
           </div>
         </div>
       </div>
-
-      {/* Subtle Dark Gradient to softly ground the section */}
-      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-56 bg-gradient-to-t from-[#0F0F0F] to-transparent" />
 
       {/* Footer Text */}
       <div className="relative z-10 mt-24 pb-12 text-center px-4">

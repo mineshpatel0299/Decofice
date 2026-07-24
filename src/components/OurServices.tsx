@@ -1,11 +1,7 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
-import gsap from "gsap";
-import { Flip } from "gsap/Flip";
-
-gsap.registerPlugin(Flip);
 
 const SERVICES = [
   {
@@ -66,33 +62,11 @@ function ArrowRightIcon({ className }: { className?: string }) {
 }
 
 export default function OurServices() {
-  const [order, setOrder] = useState(() => SERVICES.map((service) => service.id));
-  const containerRef = useRef<HTMLDivElement>(null);
-  const flipStateRef = useRef<Flip.FlipState | null>(null);
-  const flipTweenRef = useRef<gsap.core.Tween | gsap.core.Timeline | null>(null);
+  const [activeId, setActiveId] = useState(SERVICES[0].id);
 
   const bringToFront = (id: number) => {
-    if (id === order[0]) return;
-    if (containerRef.current) {
-      flipStateRef.current = Flip.getState(containerRef.current.children);
-    }
-    setOrder((prev) => [id, ...prev.filter((cardId) => cardId !== id)]);
+    setActiveId(id);
   };
-
-  useLayoutEffect(() => {
-    if (!flipStateRef.current) return;
-    // Interrupt-safe: kill any tween still running from a rapid second click
-    // before starting the next one, so their transforms never fight.
-    flipTweenRef.current?.kill();
-    flipTweenRef.current = Flip.from(flipStateRef.current, {
-      duration: 0.9,
-      ease: "power4.inOut",
-      absolute: true,
-      onComplete: () => {
-        flipStateRef.current = null;
-      },
-    });
-  }, [order]);
 
   return (
     <section className="flex w-full flex-col items-center justify-center bg-[#0F0F0F] py-24 font-sans">
@@ -112,17 +86,12 @@ export default function OurServices() {
       </div>
 
       {/* Accordion Cards */}
-      <div
-        ref={containerRef}
-        className="relative mx-auto flex h-[500px] w-full max-w-7xl justify-start overflow-x-auto px-5 md:h-[586px] md:justify-center md:overflow-visible"
-      >
-        {order.map((id, idx) => {
-          const service = SERVICES.find((s) => s.id === id)!;
-          const isActive = idx === 0;
+      <div className="relative mx-auto flex h-[500px] w-full max-w-7xl justify-start overflow-x-auto px-5 md:h-[586px] md:justify-center md:overflow-visible">
+        {SERVICES.map((service, idx) => {
+          const isActive = service.id === activeId;
           return (
-            // Outer element: owned by GSAP Flip, position/stacking only — no
-            // transform-based CSS transitions here, so Flip's slide never
-            // fights a competing CSS transform on the same node.
+            // Outer element: fixed stacking position — never reflows on
+            // click, so bringing a card forward never slides its neighbors.
             <div
               key={service.id}
               onClick={() => bringToFront(service.id)}
@@ -130,16 +99,15 @@ export default function OurServices() {
                 idx !== 0 ? "-ml-[220px] md:-ml-[260px] lg:-ml-[250px]" : ""
               }`}
               style={{
-                zIndex: 50 - idx,
+                zIndex: isActive ? 50 : 50 - idx - 1,
                 width: "415.7px",
                 maxWidth: "85vw"
               }}
             >
-              {/* Inner element: owned by Tailwind, scale/lift + color
-                  transition only — always reflects "am I first?" so it can
-                  never drift out of sync with the stack order. */}
+              {/* Inner element: pops toward the viewer (scale + lift) to
+                  read as "coming to front" rather than sliding sideways. */}
               <div
-                className={`group relative h-full w-full overflow-hidden rounded-[24px] bg-[#0F0F0F] shadow-[0_0_40px_rgba(0,0,0,0.6)] transition-transform duration-500 ease-out ${
+                className={`group relative h-full w-full origin-bottom overflow-hidden rounded-[24px] bg-[#0F0F0F] shadow-[0_0_40px_rgba(0,0,0,0.6)] transition-transform duration-500 ease-out ${
                   isActive ? "scale-105 md:scale-110 -translate-y-2 md:-translate-y-4" : "scale-100 translate-y-0"
                 }`}
               >
@@ -148,7 +116,7 @@ export default function OurServices() {
                   alt={service.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 800px"
-                  className={`object-cover transition-all duration-500 ease-out ${
+                  className={`object-cover transition-all duration-700 ease-in-out ${
                     isActive
                       ? "grayscale-0 opacity-100"
                       : "opacity-50 grayscale"
@@ -157,14 +125,14 @@ export default function OurServices() {
 
                 {/* Dark overlay for text readability on active card */}
                 <div
-                  className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent transition-opacity duration-500 ease-out ${
+                  className={`absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent transition-opacity duration-700 ease-in-out ${
                     isActive ? "opacity-100" : "opacity-0"
                   }`}
                 />
 
                 {/* Text Content */}
                 <div
-                  className={`absolute bottom-0 left-0 flex w-full flex-col items-start justify-end p-8 pb-4 transition-all duration-500 ease-out md:p-10 md:pb-6 lg:p-12 lg:pb-8 ${
+                  className={`absolute bottom-0 left-0 flex w-full flex-col items-start justify-end p-8 pb-4 transition-all duration-700 ease-in-out md:p-10 md:pb-6 lg:p-12 lg:pb-8 ${
                     isActive ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
                   }`}
                 >

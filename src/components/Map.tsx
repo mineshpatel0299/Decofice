@@ -60,17 +60,26 @@ export default function Map({ locations, activeCity }: { locations: any[]; activ
           icon={loc.name === activeCity ? activeIcon : customIcon}
         >
           <Tooltip direction="top" offset={[0, -8]} opacity={1} className="location-tooltip">
-            <div className="w-40 overflow-hidden rounded-2xl border border-white/15 bg-[#0F0F0F] shadow-2xl">
-              <img
-                src={loc.image}
-                alt={loc.name}
-                width={160}
-                height={112}
-                className="h-28 w-full object-cover"
-              />
-              <p className="px-3 py-2 text-center text-sm font-semibold text-white">
+            <div className="w-[340px] rounded-2xl bg-[#D6D6D6] p-5 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.5)]">
+              <h3 className="mb-4 text-[24px] font-semibold tracking-tight text-[#1a1a1a]">
                 {loc.name}
-              </p>
+              </h3>
+              <div className="relative h-[180px] w-full overflow-hidden rounded-xl shadow-inner">
+                <img
+                  src={loc.image}
+                  alt={loc.name}
+                  className="h-full w-full object-cover"
+                />
+                
+                <div className="absolute bottom-0 left-0 flex w-full items-center gap-3 bg-black/40 px-4 py-3 backdrop-blur-md">
+                  <div className="flex h-[18px] w-[18px] items-center justify-center rounded-full bg-white/20">
+                    <div className="h-[10px] w-[10px] rounded-full bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)]"></div>
+                  </div>
+                  <span className="text-[15px] font-medium text-white shadow-sm">
+                    Luxury Villa: In Progress
+                  </span>
+                </div>
+              </div>
             </div>
           </Tooltip>
         </Marker>
