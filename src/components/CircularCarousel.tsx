@@ -239,6 +239,24 @@ export default function CircularCarousel() {
             </svg>
           </button>
 
+          {/* Top Arc Curve Overlay */}
+          <div
+            className="pointer-events-none absolute -top-4 left-0 z-10 h-44 w-full bg-[#0F0F0F] md:h-56 lg:h-64"
+            style={{
+              clipPath: "ellipse(70% 100% at 50% 0%)",
+            }}
+            aria-hidden
+          />
+
+          {/* Bottom Arc Curve Overlay */}
+          <div
+            className="pointer-events-none absolute -bottom-4 left-0 z-10 h-44 w-full bg-[#0F0F0F] md:h-56 lg:h-64"
+            style={{
+              clipPath: "ellipse(70% 100% at 50% 100%)",
+            }}
+            aria-hidden
+          />
+
           {/* Track */}
           <div
             ref={containerRef}
@@ -299,7 +317,7 @@ export default function CircularCarousel() {
         {/* Active card info */}
         <div
           ref={infoRef}
-          className="px-4 text-center"
+          className="relative z-20 px-4 text-center"
           style={{ marginTop: `calc(var(--cs) * ${INFO_PANEL_MARGIN_TOP}px)` }}
         >
           <h3 className="mb-3 font-opensans text-lg leading-none font-semibold tracking-normal text-[#25975B] lg:text-[24px]">

@@ -46,6 +46,16 @@ const MOBILE_ILLS_TRANSLATE_Y = -24.21; // %
 // mobile viewport. Negative shifts left.
 const MOBILE_HERO_SHIFT_X = -5; // %
 
+// The mobile background photo is `fill` + object-cover, so its box exactly
+// matches the section. Shifting that box via translateX(MOBILE_HERO_SHIFT_X)
+// slides the whole covered area left, uncovering a bare strip of the
+// section's dark background on the right. Scaling the box up (about its
+// center) makes it overhang the section on both sides so the shift no
+// longer exposes an edge. Solved so scale*(1+shift/2) >= 1 with a small
+// margin: at shift=-5%, ~1.111 is the exact break-even, 1.15 keeps a
+// buffer against viewport/rounding differences without visibly zooming in.
+const MOBILE_HERO_SCALE = 1.15;
+
 const FILTERS = [
   {
     label: "Resorts",
@@ -108,6 +118,22 @@ export default function Hero() {
       { y: "100%" },
       { y: "0%", duration: 1, stagger: 0.15, ease: "power4.out", delay: 2.2 }
     );
+
+    // Mobile-only: the glass card already paints beneath the mobile
+    // illustration overlay here (that Image is z-35, this card sits in the
+    // z-auto content column), so rising it up from below reads as it
+    // sliding out from behind the house. Scoped to <lg (matches the
+    // `lg:hidden` breakpoint on the card itself) so desktop is untouched.
+    const mm = gsap.matchMedia();
+    mm.add("(max-width: 1023px)", () => {
+      gsap.fromTo(
+        mobileGlassCardRef.current,
+        { y: 80, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1.1, ease: "power3.out", delay: 2.6 }
+      );
+    });
+
+    return () => mm.revert();
   }, []);
 
   return (
@@ -130,7 +156,9 @@ export default function Hero() {
         preload
         sizes="100vw"
         className="object-cover lg:hidden"
-        style={{ transform: `translateX(${MOBILE_HERO_SHIFT_X}%)` }}
+        style={{
+          transform: `scale(${MOBILE_HERO_SCALE}) translateX(${MOBILE_HERO_SHIFT_X}%)`,
+        }}
       />
 
       {/* Positioning frame matching the content column's max-w-[1800px] container,
@@ -267,7 +295,7 @@ export default function Hero() {
               version above, tucked over the hero photo */}
           <div
             ref={mobileGlassCardRef}
-            className="pointer-events-auto relative mt-21 -translate-x-4 flex h-46.5 w-64 flex-col gap-6 rounded-3xl border border-white/25 bg-white/5 pt-5 pr-3 pb-5 pl-3 shadow-2xl backdrop-blur-sm lg:hidden"
+            className="pointer-events-auto relative mt-21 -translate-x-1 translate-y-20 opacity-0 flex h-46.5 w-64 flex-col gap-6 rounded-3xl border border-white/25 bg-white/5 pt-5 pr-3 pb-5 pl-3 shadow-2xl backdrop-blur-sm lg:hidden"
           >
             <div className="flex flex-nowrap gap-1.5 overflow-x-auto scrollbar-none">
               {FILTERS.map((filter, i) => {
