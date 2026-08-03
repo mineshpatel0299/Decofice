@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import { useState, useEffect, useRef } from "react";
+import gsap from "gsap";
 
 const NAV_LINKS = [
   { label: "Projects", href: "#projects" },
@@ -17,6 +18,17 @@ export default function Navbar() {
   const [isHidden, setIsHidden] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const lastScrollY = useRef(0);
+  const headerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (headerRef.current) {
+      gsap.fromTo(
+        headerRef.current,
+        { y: "-100%", opacity: 0 },
+        { y: "0%", opacity: 1, duration: 1, ease: "power3.out", delay: 2.2, clearProps: "all" }
+      );
+    }
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -58,6 +70,7 @@ export default function Navbar() {
 
   return (
     <header
+      ref={headerRef}
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-in-out ${
         isHidden ? "-translate-y-full" : "translate-y-0"
       } ${
@@ -67,7 +80,7 @@ export default function Navbar() {
       }`}
     >
       <nav
-        className={`mx-auto flex max-w-[1800px] items-center justify-between px-8 sm:px-12 lg:px-16 transition-all duration-300 ${
+        className={`mx-auto flex max-w-[1800px] items-center justify-between px-8 sm:px-12 lg:px-[11.67vw] transition-all duration-300 ${
           isScrolled ? "py-4" : "py-7"
         }`}
       >

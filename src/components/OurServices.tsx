@@ -69,17 +69,17 @@ export default function OurServices() {
   };
 
   return (
-    <section className="flex w-full flex-col items-center justify-center bg-[#0F0F0F] py-24 font-sans">
+    <section className="flex w-full flex-col items-center justify-center bg-[#0F0F0F] py-12 font-sans">
       {/* Header */}
       <div className="mb-12 px-4 text-center">
-        <span className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#25975B] px-4 py-2 text-xs font-bold tracking-wider text-white uppercase">
+        <span className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#25975B] px-6 py-2.5 text-xs font-semibold tracking-wider text-white uppercase">
           <span className="h-1.5 w-1.5 rounded-full bg-white shadow-[0_0_8px_2px_rgba(255,255,255,0.7)]" />
           Our Services
         </span>
-        <h2 className="text-center font-opensans text-[56px] leading-[1.1] font-bold tracking-tight text-white md:text-[64px]">
+        <h2 className="text-center font-opensans text-[56px] leading-[1.2] font-bold tracking-normal text-white md:text-[64px]">
           Integrated <span className="font-serif italic text-[#25975B]">Expertise</span>
         </h2>
-        <p className="mx-auto mt-6 max-w-3xl text-center text-lg leading-relaxed text-white/80 md:text-xl">
+        <p className="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-white/80 md:text-lg text-center">
           From visionary design to flawless execution, our multidisciplinary expertise ensures every project is
           delivered with precision, creativity and uncompromising quality.
         </p>

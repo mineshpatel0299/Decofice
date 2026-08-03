@@ -110,6 +110,8 @@ export default function Hero() {
   const textRef1 = useRef<HTMLSpanElement>(null);
   const textRef2 = useRef<HTMLSpanElement>(null);
   const textRef3 = useRef<HTMLSpanElement>(null);
+  const pRef = useRef<HTMLParagraphElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Left head text animation: stagger reveal
@@ -117,6 +119,24 @@ export default function Hero() {
       [textRef1.current, textRef2.current, textRef3.current],
       { y: "100%" },
       { y: "0%", duration: 1, stagger: 0.15, ease: "power4.out", delay: 2.2 }
+    );
+
+    gsap.fromTo(
+      glassCardRef.current,
+      { y: 50, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 2.4 }
+    );
+
+    gsap.fromTo(
+      pRef.current,
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 2.6 }
+    );
+
+    gsap.fromTo(
+      ctaRef.current,
+      { y: 20, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 2.8 }
     );
 
     // Mobile-only: the glass card already paints beneath the mobile
@@ -139,14 +159,19 @@ export default function Hero() {
   return (
     <section className="relative min-h-dvh w-full overflow-hidden bg-neutral-950 lg:min-h-screen">
       {/* Background photo — desktop crop */}
-      <Image
-        src="/hero.png"
-        alt="Modern mountain estate at dusk"
-        fill
-        preload
-        sizes="100vw"
-        className="hidden object-cover lg:block"
-      />
+      <div
+        className="pointer-events-none absolute inset-0 hidden lg:block"
+        style={{ zIndex: 0, transform: "scale(1.05)" }}
+      >
+        <Image
+          src="/hero.png"
+          alt="Modern mountain estate at dusk"
+          fill
+          preload
+          sizes="100vw"
+          className="object-cover"
+        />
+      </div>
 
       {/* Background photo — mobile-specific portrait crop */}
       <Image
@@ -230,19 +255,23 @@ export default function Hero() {
 
       {/* Illustration, aligned on top of the house baked into the photo —
           in front of the glass card above (desktop) */}
-      <Image
-        src="/ills.png"
-        alt=""
-        fill
-        preload
-        sizes="100vw"
-        className="pointer-events-none hidden object-cover lg:block"
-        style={{
-          zIndex: 20,
-          transformOrigin: "0 0",
-          transform: `translate(${ILLS_TRANSLATE_X}%, ${ILLS_TRANSLATE_Y}%) scale(${ILLS_SCALE})`,
-        }}
-      />
+      <div
+        className="pointer-events-none absolute inset-0 hidden lg:block"
+        style={{ zIndex: 20, transform: "scale(1.05)" }}
+      >
+        <Image
+          src="/ills.png"
+          alt=""
+          fill
+          preload
+          sizes="100vw"
+          className="object-cover"
+          style={{
+            transformOrigin: "0 0",
+            transform: `translate(${ILLS_TRANSLATE_X}%, ${ILLS_TRANSLATE_Y}%) scale(${ILLS_SCALE})`,
+          }}
+        />
+      </div>
 
       {/* Illustration, aligned on top of the house baked into mhero.png.
           Content column is raised above this on mobile (z-40 vs 35) so the
@@ -263,18 +292,18 @@ export default function Hero() {
 
       {/* Dark overlay confined to a band at the very bottom of the section */}
       <div
-        className="pointer-events-none absolute inset-x-0 top-[70.93vh] z-25 hidden h-[31.11vh] lg:block"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-25 hidden h-[15vh] lg:block"
         style={{
           background:
-            "linear-gradient(180deg, rgba(15, 15, 15, 0) 0%, #0F0F0F 46.27%)",
+            "linear-gradient(180deg, rgba(15, 15, 15, 0) 0%, #0F0F0F 100%)",
         }}
       />
 
       <Navbar />
 
-      <div className="pointer-events-none relative mx-auto flex min-h-dvh max-w-[1800px] flex-col px-8 pt-10 pb-8 sm:px-12 lg:z-30 lg:min-h-screen lg:pt-[14.69vh] lg:pb-16 lg:pr-16 lg:pl-[11.67vw]">
+      <div className="pointer-events-none relative mx-auto flex min-h-dvh max-w-[1800px] flex-col px-8 pt-10 pb-8 sm:px-12 lg:z-30 lg:min-h-screen lg:pt-[14.69vh] lg:pb-16 lg:px-[11.67vw]">
         <div className="pointer-events-none flex flex-1 flex-col items-center justify-start pt-10 text-center lg:pt-[5.87vh] lg:items-start lg:text-left">
-          <h1 className="font-serif text-[38px] leading-[1.05] font-bold tracking-tight text-[#f5f0e6] sm:text-7xl lg:text-8xl">
+          <h1 className="font-serif text-[38px] leading-[1.1] font-bold tracking-normal text-[#f5f0e6] sm:text-6xl md:text-7xl lg:text-[72px] xl:text-[86px] 2xl:text-[100px]">
             <span className="inline-block overflow-hidden align-top lg:block" style={{ paddingBottom: '0.1em', marginBottom: '-0.1em' }}>
               <span ref={textRef1} className="block translate-y-[100%]">Design.</span>
             </span>{" "}
@@ -286,7 +315,7 @@ export default function Hero() {
             </span>
           </h1>
 
-          <p className="mt-6 max-w-xs text-base leading-relaxed text-white/85 sm:max-w-sm sm:text-lg lg:mt-8 lg:max-w-md lg:text-2xl">
+          <p ref={pRef} className="mt-6 max-w-xs text-base leading-relaxed text-white/85 sm:max-w-sm sm:text-lg lg:mt-8 lg:max-w-lg lg:text-[18px] xl:text-[22px] lg:leading-[1.6]">
             Architecture, Interior Design, Construction &amp; Project
             Management under one roof.
           </p>
@@ -368,7 +397,7 @@ export default function Hero() {
               minus ~515px (that flow content's rough height) gives the gap
               still needed at any device height, floored at 2rem so it
               never goes negative on short viewports. */}
-          <div className="pointer-events-auto relative z-40 top-8 mt-[max(2rem,calc(75.6vh-515px))] flex w-full max-w-sm flex-col items-center gap-2.5 lg:top-0 lg:z-auto lg:mt-10 lg:w-auto lg:max-w-none lg:flex-row lg:flex-wrap lg:items-center lg:gap-4">
+          <div ref={ctaRef} className="pointer-events-auto relative z-40 top-8 mt-[max(2rem,calc(75.6vh-515px))] flex w-full max-w-sm flex-col items-center gap-2.5 lg:top-0 lg:z-auto lg:mt-10 lg:w-auto lg:max-w-none lg:flex-row lg:flex-wrap lg:items-center lg:gap-4">
             <a
               href="#start"
               className="flex h-9 w-46.25 items-center justify-center rounded-lg bg-[#25975B] px-3 py-2 text-center text-sm font-semibold text-white transition-colors hover:bg-[#456b52] lg:h-auto lg:w-auto lg:rounded-lg lg:px-8 lg:py-4"

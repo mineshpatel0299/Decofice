@@ -11,7 +11,7 @@ import Preloader from "@/components/Preloader";
 
 export default function Home() {
   return (
-    <div className="flex flex-1 flex-col gap-24 bg-[#0F0F0F]">
+    <div className="flex flex-1 flex-col bg-[#0F0F0F]">
       <Preloader />
       <Hero />
       <CircularCarousel />

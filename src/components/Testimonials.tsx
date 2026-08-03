@@ -40,23 +40,23 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="w-full bg-[#0F0F0F] py-16 md:py-24">
+    <section className="w-full bg-[#0F0F0F] py-12">
       <div className="mx-auto w-full max-w-[1200px] px-5">
         <div className="flex flex-col items-center justify-center mb-16">
           {/* Badge */}
-          <span className="mb-8 inline-flex items-center gap-2 rounded-full bg-[#25975B] px-4 py-2 text-xs font-bold tracking-wider text-white uppercase">
+          <span className="mb-8 inline-flex items-center gap-2 rounded-full bg-[#25975B] px-6 py-2.5 text-xs font-semibold tracking-wider text-white uppercase">
             <span className="h-1.5 w-1.5 rounded-full bg-white" />
             TESTIMONIALS
           </span>
 
           {/* Heading */}
-          <h2 className="mb-4 text-center font-sans text-4xl font-bold tracking-tight text-white md:text-[56px] leading-tight">
+          <h2 className="mb-4 text-center font-sans text-4xl font-bold tracking-normal text-white md:text-[56px] leading-[1.2]">
             Their <span className="font-serif italic font-medium text-[#25975B]">Experience</span> Their{" "}
             <span className="font-serif italic font-medium text-[#25975B]">Perspective</span>
           </h2>
 
           {/* Subtitle */}
-          <p className="text-center text-sm md:text-base text-white/80">
+          <p className="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-white/80 md:text-lg text-center">
             Real conversations with the people who entrusted Decofice with their vision.
           </p>
         </div>

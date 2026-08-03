@@ -1,8 +1,8 @@
 export default function VisitUs() {
   return (
-    <section className="w-full bg-[#0F0F0F] py-16 md:py-24">
+    <section className="w-full bg-[#0F0F0F] py-12">
       <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center px-5">
-        <h2 className="mb-16 text-center font-sans text-4xl font-bold tracking-tight text-white md:text-[56px] leading-tight">
+        <h2 className="mb-16 text-center font-sans text-4xl font-bold tracking-normal text-white md:text-[56px] leading-[1.2]">
           Visit <span className="font-serif italic font-medium text-[#25975B]">Us</span>
         </h2>
 

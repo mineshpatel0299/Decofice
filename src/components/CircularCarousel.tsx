@@ -173,7 +173,7 @@ export default function CircularCarousel() {
 
   return (
     <section
-      className="flex min-h-screen w-full select-none flex-col items-center justify-center overflow-hidden bg-[#0F0F0F] px-5 py-20 font-sans"
+      className="flex min-h-screen w-full select-none flex-col items-center justify-center overflow-hidden bg-[#0F0F0F] px-5 py-12 font-sans"
       onKeyDown={(e) => {
         if (e.key === "ArrowLeft") rotate("prev");
         if (e.key === "ArrowRight") rotate("next");
@@ -182,17 +182,17 @@ export default function CircularCarousel() {
     >
       {/* Header */}
       <div className="mb-8 px-4 text-center">
-        <span className="mb-3 inline-flex items-center gap-2 rounded-full bg-[#25975B] px-4 py-2 text-xs font-bold tracking-wider text-white uppercase">
+        <span className="mb-3 inline-flex items-center gap-2 rounded-full bg-[#25975B] px-6 py-2.5 text-xs font-semibold tracking-wider text-white uppercase">
           <span className="h-1.5 w-1.5 rounded-full bg-white" />
           Types of Projects
         </span>
-        <h2 className="font-opensans text-[28px] leading-8.5 font-bold text-white sm:text-4xl sm:leading-tight lg:whitespace-nowrap lg:text-[64px] lg:leading-18">
+        <h2 className="font-opensans text-[28px] leading-snug font-bold tracking-normal text-white sm:text-4xl sm:leading-[1.2] lg:whitespace-nowrap lg:text-[64px] lg:leading-[1.2]">
           Whatever You&apos;re Building,
         </h2>
-        <p className="font-serif text-[28px] leading-8.5 font-bold text-[#25975B] italic sm:text-4xl sm:leading-tight lg:text-[64px] lg:leading-18">
+        <p className="font-serif text-[28px] leading-snug font-bold text-[#25975B] italic sm:text-4xl sm:leading-[1.2] lg:text-[64px] lg:leading-[1.2]">
           It Starts Here
         </p>
-        <p className="mx-auto mt-3 max-w-xs text-sm text-white/70 sm:max-w-sm sm:text-base lg:max-w-xl lg:text-lg">
+        <p className="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-white/80 md:text-lg text-center">
           The next image you see could be the beginning of your own project.
         </p>
         <a

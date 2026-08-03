@@ -17,7 +17,7 @@ function Badge({ active, text }: { active?: boolean; text: string }) {
 export default function WhyDecofice() {
   return (
     <section
-      className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#0F0F0F] bg-cover bg-center py-24 font-sans"
+      className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden bg-[#0F0F0F] bg-cover bg-center py-12 font-sans"
       style={{ backgroundImage: "url('/bg.jpg')" }}
     >
       {/* Huge Background Text */}
@@ -36,7 +36,7 @@ export default function WhyDecofice() {
 
       {/* Top Badge */}
       <div className="relative z-10 mb-20 text-center">
-        <span className="inline-flex items-center gap-2 rounded-full bg-[#25975B] px-4 py-2 text-xs font-bold tracking-wider text-white uppercase shadow-[0_0_20px_rgba(37,151,91,0.4)]">
+        <span className="inline-flex items-center gap-2 rounded-full bg-[#25975B] px-6 py-2.5 text-xs font-semibold tracking-wider text-white uppercase shadow-[0_0_20px_rgba(37,151,91,0.4)]">
           <span className="h-1.5 w-1.5 rounded-full bg-white shadow-[0_0_8px_2px_rgba(255,255,255,0.8)]" />
           Why Decofice
         </span>

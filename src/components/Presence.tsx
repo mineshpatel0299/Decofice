@@ -42,12 +42,12 @@ export default function Presence() {
   const [activeCity, setActiveCity] = useState<string>("Mukteshwar");
 
   return (
-    <section className="w-full bg-[#0F0F0F] pt-12 pb-0 md:pt-20">
+    <section className="w-full bg-[#0F0F0F] py-12">
       <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center px-5">
-        <h2 className="text-center font-sans text-4xl md:text-[56px] leading-tight font-bold tracking-tight text-white mb-6">
+        <h2 className="text-center font-sans text-4xl md:text-[56px] leading-[1.2] font-bold tracking-normal text-white mb-6">
           A Presence That Continues To <span className="font-serif italic text-[#25975B] font-medium">Grow</span>
         </h2>
-        <p className="max-w-[700px] text-center text-[15px] md:text-[17px] text-white/80 mb-10 leading-relaxed">
+        <p className="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-white/80 md:text-lg text-center mb-10">
           Every new location represents another partnership built on trust, thoughtful
           design and uncompromising execution.
         </p>
