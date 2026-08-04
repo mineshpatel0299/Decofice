@@ -44,6 +44,10 @@ export default function Presence() {
   return (
     <section className="w-full bg-[#0F0F0F] py-12">
       <div className="mx-auto flex w-full max-w-[1200px] flex-col items-center px-5">
+        <span className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#25975B] px-6 py-2.5 text-xs font-semibold tracking-wider text-white uppercase">
+          <span className="h-1.5 w-1.5 rounded-full bg-white shadow-[0_0_8px_2px_rgba(255,255,255,0.7)]" />
+          Our Presence
+        </span>
         <h2 className="text-center font-sans text-4xl md:text-[56px] leading-[1.2] font-bold tracking-normal text-white mb-6">
           A Presence That Continues To <span className="font-serif italic text-[#25975B] font-medium">Grow</span>
         </h2>
@@ -59,7 +63,7 @@ export default function Presence() {
               <button
                 key={loc.name}
                 onClick={() => setActiveCity(loc.name)}
-                className={`rounded-full px-5 py-2 text-sm font-medium transition-colors cursor-pointer ${
+                className={`rounded-full px-4 py-1.5 text-[13px] font-medium transition-colors cursor-pointer ${
                   isActive
                     ? "border border-white bg-transparent text-white"
                     : "bg-white text-black hover:bg-gray-200"
@@ -69,9 +73,9 @@ export default function Presence() {
               </button>
             );
           })}
-          <button className="flex items-center gap-1.5 rounded-full bg-[#25975B] px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-[#1e7a49]">
+          <button className="flex items-center gap-1.5 rounded-full bg-[#25975B] px-4 py-1.5 text-[13px] font-medium text-white transition-colors hover:bg-[#1e7a49]">
             More
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="m6 9 6 6 6-6"/>
             </svg>
           </button>

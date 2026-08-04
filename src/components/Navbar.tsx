@@ -1,168 +1,118 @@
 "use client";
 
-import Link from "next/link";
-import Logo from "./Logo";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import Logo from "./Logo";
 
-const NAV_LINKS = [
-  { label: "Projects", href: "#projects" },
-  { label: "Real Estate Solution", href: "#solutions" },
-  { label: "About Us", href: "#about" },
-  { label: "Start Your Project", href: "#start" },
-  { label: "Blog", href: "#blog" },
+const navLinks = [
+  { label: "Projects", href: "https://www.decofice.com/project" },
+  { label: "Real Estate Solution", href: "https://www.decofice.com/realestate-solution" },
+  { label: "About Us", href: "https://www.decofice.com/about" },
+  { label: "Start Your Project", href: "https://www.decofice.com/project-booking" },
+  { label: "Resorts", href: "https://resort.decofice.com" },
 ];
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const lastScrollY = useRef(0);
+  const [menuOpen, setMenuOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (headerRef.current) {
-      gsap.fromTo(
-        headerRef.current,
-        { y: "-100%", opacity: 0 },
-        { y: "0%", opacity: 1, duration: 1, ease: "power3.out", delay: 2.2, clearProps: "all" }
-      );
-    }
-  }, []);
+    // Slides down once the preloader (1s delay + 1.4s logo zoom + 0.4s fade,
+    // overlapping) has fully cleared at ~2.5s — same cue Hero's copy uses.
+    const hasSeen = sessionStorage.getItem("hasSeenPreloader");
+    const delay = hasSeen ? 0 : 2.5;
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      // Add background if scrolled past threshold
-      if (currentScrollY > 50) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
-
-      // Hide navbar if scrolling down, show if scrolling up (never while the
-      // mobile menu is open, so it doesn't disappear out from under the user)
-      if (
-        !isMobileMenuOpen &&
-        currentScrollY > lastScrollY.current &&
-        currentScrollY > 150
-      ) {
-        setIsHidden(true); // Scrolling down
-      } else {
-        setIsHidden(false); // Scrolling up
-      }
-
-      lastScrollY.current = currentScrollY;
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isMobileMenuOpen]);
-
-  useEffect(() => {
-    const closeOnDesktop = () => {
-      if (window.innerWidth >= 1024) setIsMobileMenuOpen(false);
-    };
-    window.addEventListener("resize", closeOnDesktop);
-    return () => window.removeEventListener("resize", closeOnDesktop);
+    gsap.fromTo(
+      headerRef.current,
+      { y: -40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay }
+    );
   }, []);
 
   return (
     <header
       ref={headerRef}
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ease-in-out ${
-        isHidden ? "-translate-y-full" : "translate-y-0"
-      } ${
-        isScrolled || isMobileMenuOpen
-          ? "bg-[#0F0F0F]/95 backdrop-blur-md shadow-lg border-b border-white/5"
-          : "bg-transparent"
-      }`}
+      className="absolute inset-x-0 top-0 z-50 mx-auto max-w-[1800px] px-8 pt-8 opacity-0 sm:px-12 lg:px-[11.67vw]"
     >
-      <nav
-        className={`mx-auto flex max-w-[1800px] items-center justify-between px-8 sm:px-12 lg:px-[11.67vw] transition-all duration-300 ${
-          isScrolled ? "py-4" : "py-7"
+      <div className="flex items-center justify-between">
+        <a href="/" className="shrink-0 text-white">
+          <Logo className="w-[39px] h-[38px]" />
+        </a>
+
+        <nav className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-9 lg:flex">
+          {navLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              className="font-opensans text-[16px] font-normal leading-none tracking-normal text-white/90 transition-colors hover:text-white"
+            >
+              {link.label}
+            </a>
+          ))}
+        </nav>
+
+        <a
+          href="https://www.decofice.com/contact"
+          className="hidden shrink-0 items-center justify-center gap-[10px] rounded-full bg-white px-7 py-3 h-12 font-opensans text-[16px] font-normal leading-6 tracking-normal text-black transition-colors hover:bg-white/90 lg:inline-flex"
+        >
+          Contact Us
+        </a>
+
+        {/* Hamburger toggle: mobile/tablet only */}
+        <button
+          type="button"
+          onClick={() => setMenuOpen((open) => !open)}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-nav-menu"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          className="relative z-30 flex h-9 w-9 shrink-0 items-center justify-center text-white lg:hidden"
+        >
+          <span className="relative block h-4 w-5.5">
+            <span
+              className={`absolute left-0 h-0.5 w-full rounded-full bg-current transition-all duration-300 ${
+                menuOpen ? "top-1.75 rotate-45" : "top-0 rotate-0"
+              }`}
+            />
+            <span
+              className={`absolute left-0 top-1.75 h-0.5 w-full rounded-full bg-current transition-opacity duration-300 ${
+                menuOpen ? "opacity-0" : "opacity-100"
+              }`}
+            />
+            <span
+              className={`absolute left-0 h-0.5 w-full rounded-full bg-current transition-all duration-300 ${
+                menuOpen ? "top-1.75 -rotate-45" : "top-3.5 rotate-0"
+              }`}
+            />
+          </span>
+        </button>
+      </div>
+
+      {/* Mobile/tablet menu panel */}
+      <div
+        id="mobile-nav-menu"
+        className={`absolute inset-x-4 top-full z-20 origin-top overflow-hidden rounded-2xl border border-white/10 bg-black/95 backdrop-blur-sm transition-all duration-300 ease-out lg:hidden ${
+          menuOpen ? "mt-3 max-h-100 opacity-100" : "mt-0 max-h-0 opacity-0"
         }`}
       >
-        <Link href="/" aria-label="Home" className="text-white shrink-0">
-          <Logo className="h-9 w-9" />
-        </Link>
-
-        <ul className="hidden items-center gap-9 text-[15px] font-medium text-white/90 lg:flex">
-          {NAV_LINKS.map((link) => (
-            <li key={link.label}>
-              <Link
-                href={link.href}
-                className="transition-colors hover:text-white"
-              >
-                {link.label}
-              </Link>
-            </li>
+        <nav className="flex flex-col items-center gap-6 px-6 py-8">
+          {navLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              onClick={() => setMenuOpen(false)}
+              className="font-opensans text-[16px] font-normal leading-none tracking-normal text-white/90 transition-colors hover:text-white"
+            >
+              {link.label}
+            </a>
           ))}
-        </ul>
-
-        <div className="flex shrink-0 items-center gap-3">
-          <Link
-            href="#contact"
-            className="hidden shrink-0 rounded-lg bg-white px-7 py-3 text-sm font-semibold text-neutral-900 transition-colors hover:bg-white/90 lg:inline-block"
+          <a
+            href="https://www.decofice.com/contact"
+            onClick={() => setMenuOpen(false)}
+            className="mt-2 flex w-full max-w-60 items-center justify-center gap-[10px] rounded-full bg-white px-7 py-3 h-12 font-opensans text-[16px] font-normal leading-6 tracking-normal text-black transition-colors hover:bg-white/90"
           >
             Contact Us
-          </Link>
-
-          <button
-            type="button"
-            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={isMobileMenuOpen}
-            onClick={() => setIsMobileMenuOpen((open) => !open)}
-            className="relative flex h-9 w-9 flex-col items-center justify-center gap-1.25 lg:hidden"
-          >
-            <span
-              className={`block h-0.5 w-6 rounded-full bg-white transition-transform duration-300 ease-in-out ${
-                isMobileMenuOpen ? "translate-y-1.75 rotate-45" : ""
-              }`}
-            />
-            <span
-              className={`block h-0.5 w-6 rounded-full bg-white transition-opacity duration-200 ease-in-out ${
-                isMobileMenuOpen ? "opacity-0" : "opacity-100"
-              }`}
-            />
-            <span
-              className={`block h-0.5 w-6 rounded-full bg-white transition-transform duration-300 ease-in-out ${
-                isMobileMenuOpen ? "-translate-y-1.75 -rotate-45" : ""
-              }`}
-            />
-          </button>
-        </div>
-      </nav>
-
-      {/* Mobile menu panel */}
-      <div
-        className={`overflow-hidden transition-all duration-300 ease-in-out lg:hidden ${
-          isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-        }`}
-      >
-        <ul className="flex flex-col gap-1 border-t border-white/10 bg-[#0F0F0F]/95 px-8 py-6 backdrop-blur-md">
-          {NAV_LINKS.map((link) => (
-            <li key={link.label}>
-              <Link
-                href={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="block py-3 text-base font-medium text-white/90 transition-colors hover:text-white"
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-          <li className="pt-2">
-            <Link
-              href="#contact"
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="inline-block rounded-lg bg-white px-7 py-3 text-sm font-semibold text-neutral-900 transition-colors hover:bg-white/90"
-            >
-              Contact Us
-            </Link>
-          </li>
-        </ul>
+          </a>
+        </nav>
       </div>
     </header>
   );

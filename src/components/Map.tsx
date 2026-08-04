@@ -7,21 +7,21 @@ import "leaflet/dist/leaflet.css";
 
 const customIcon = L.divIcon({
   className: "custom-marker",
-  html: `<div class="relative flex h-14 w-14 items-center justify-center rounded-full bg-[#25975B]/30 backdrop-blur-[2px]">
-           <div class="h-4 w-4 rounded-full bg-[#25975B]"></div>
+  html: `<div class="relative flex h-10 w-10 items-center justify-center rounded-full bg-[#25975B]/30 backdrop-blur-[2px]">
+           <div class="h-3 w-3 rounded-full bg-[#25975B]"></div>
          </div>`,
-  iconSize: [56, 56],
-  iconAnchor: [28, 28],
+  iconSize: [40, 40],
+  iconAnchor: [20, 20],
 });
 
 const activeIcon = L.divIcon({
   className: "custom-marker-active",
-  html: `<div class="relative flex h-16 w-16 items-center justify-center rounded-full bg-[#25975B]/50 backdrop-blur-[2px]">
+  html: `<div class="relative flex h-12 w-12 items-center justify-center rounded-full bg-[#25975B]/50 backdrop-blur-[2px]">
            <div class="absolute h-full w-full animate-ping rounded-full bg-[#25975B] opacity-60"></div>
-           <div class="h-[18px] w-[18px] rounded-full bg-[#25975B]"></div>
+           <div class="h-[14px] w-[14px] rounded-full bg-[#25975B]"></div>
          </div>`,
-  iconSize: [64, 64],
-  iconAnchor: [32, 32],
+  iconSize: [48, 48],
+  iconAnchor: [24, 24],
 });
 
 function MapController({ activeLocation }: { activeLocation: any }) {

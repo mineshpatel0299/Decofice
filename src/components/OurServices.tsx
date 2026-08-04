@@ -71,7 +71,7 @@ export default function OurServices() {
   return (
     <section className="flex w-full flex-col items-center justify-center bg-[#0F0F0F] py-12 font-sans">
       {/* Header */}
-      <div className="mb-12 px-4 text-center">
+      <div className="mb-24 px-4 text-center">
         <span className="mb-6 inline-flex items-center gap-2 rounded-full bg-[#25975B] px-6 py-2.5 text-xs font-semibold tracking-wider text-white uppercase">
           <span className="h-1.5 w-1.5 rounded-full bg-white shadow-[0_0_8px_2px_rgba(255,255,255,0.7)]" />
           Our Services
@@ -86,7 +86,7 @@ export default function OurServices() {
       </div>
 
       {/* Accordion Cards */}
-      <div className="relative mx-auto flex h-[500px] w-full max-w-7xl justify-start overflow-x-auto px-5 md:h-[586px] md:justify-center md:overflow-visible">
+      <div className="relative mx-auto flex h-[420px] w-full max-w-7xl justify-start overflow-x-auto px-5 md:h-[480px] md:justify-center md:overflow-visible">
         {SERVICES.map((service, idx) => {
           const isActive = service.id === activeId;
           return (
@@ -96,11 +96,11 @@ export default function OurServices() {
               key={service.id}
               onClick={() => bringToFront(service.id)}
               className={`relative flex-none cursor-pointer ${
-                idx !== 0 ? "-ml-[220px] md:-ml-[260px] lg:-ml-[250px]" : ""
+                idx !== 0 ? "-ml-[180px] md:-ml-[220px] lg:-ml-[200px]" : ""
               }`}
               style={{
                 zIndex: isActive ? 50 : 50 - idx - 1,
-                width: "415.7px",
+                width: "340px",
                 maxWidth: "85vw"
               }}
             >
@@ -132,22 +132,22 @@ export default function OurServices() {
 
                 {/* Text Content */}
                 <div
-                  className={`absolute bottom-0 left-0 flex w-full flex-col items-start justify-end p-8 pb-4 transition-all duration-700 ease-in-out md:p-10 md:pb-6 lg:p-12 lg:pb-8 ${
+                  className={`absolute bottom-0 left-0 flex w-full flex-col items-center justify-end p-6 pb-4 transition-all duration-700 ease-in-out md:p-8 md:pb-6 lg:p-10 lg:pb-8 ${
                     isActive ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0"
                   }`}
                 >
-                  <h3 className="mb-1.5 font-opensans text-[24px] font-bold text-white">
+                  <h3 className="mb-1.5 font-opensans text-[20px] font-bold text-white text-center">
                     {service.title}
                   </h3>
-                  <p className="mb-4 max-w-md text-[16px] text-white/85">
+                  <p className="mb-5 max-w-sm text-[14px] text-white/85 text-center">
                     {service.desc}
                   </p>
                   <button
                     type="button"
-                    className="self-center inline-flex h-[48px] w-[351px] items-center justify-between rounded-[8px] bg-[#25975B] px-[28px] py-[12px] text-sm font-semibold text-white shadow-lg transition-colors hover:bg-[#1f7f4c] md:text-base"
+                    className="self-center inline-flex h-[44px] w-full max-w-[240px] items-center justify-center gap-2 rounded-[8px] bg-[#25975B] px-[24px] py-[10px] text-sm font-medium text-white shadow-lg transition-colors hover:bg-[#1f7f4c]"
                   >
                     Talk To Our Team
-                    <ArrowRightIcon className="h-5 w-5" />
+                    <ArrowRightIcon className="h-4 w-4" />
                   </button>
                 </div>
               </div>
