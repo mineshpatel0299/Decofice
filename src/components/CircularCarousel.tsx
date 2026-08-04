@@ -53,7 +53,7 @@ const BASE_EMPTY_SPACE = (MAX_HEIGHT - CENTER_CARD_HEIGHT) / 2;
 // the caption already reaches up into it via INFO_PANEL_MARGIN_TOP, so it's
 // absorbed for free instead of being visible. Bounded well under the tallest
 // side cards' own headroom so nothing clips against the track's overflow.
-const CENTER_ANCHOR_SHIFT = 90;
+const CENTER_ANCHOR_SHIFT = 150;
 const EMPTY_SPACE_ABOVE_CENTER_CARD = Math.max(0, BASE_EMPTY_SPACE - CENTER_ANCHOR_SHIFT);
 const EMPTY_SPACE_BELOW_CENTER_CARD = BASE_EMPTY_SPACE + CENTER_ANCHOR_SHIFT;
 // Pull the info panel up by that amount, minus the gap we actually want, so
@@ -214,7 +214,7 @@ export default function CircularCarousel() {
       tabIndex={0}
     >
       {/* Header */}
-      <div className="mb-2 px-4 text-center">
+      <div className="relative z-30 -mb-20 px-4 text-center">
         <span className="mb-1 inline-flex items-center gap-2 rounded-full bg-[#25975B] px-6 py-1.5 text-xs font-semibold tracking-wider text-white uppercase">
           <span className="h-1.5 w-1.5 rounded-full bg-white" />
           Types of Projects
@@ -225,12 +225,12 @@ export default function CircularCarousel() {
         <p className="font-serif text-[28px] leading-snug font-bold text-[#25975B] italic sm:text-4xl sm:leading-[1.2] lg:text-[40px] lg:leading-[1.2]">
           It Starts Here
         </p>
-        <p className="mx-auto mt-1 max-w-3xl text-base leading-snug text-white/80 md:text-lg text-center">
+        <p className="mx-auto mt-2 max-w-3xl text-base leading-relaxed text-white/80 md:text-lg text-center">
           The next image you see could be the beginning of your own project.
         </p>
         <a
           href="#consultation"
-          className="mt-2 inline-block rounded-lg bg-[#25975B] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1f7f4c] lg:mt-2 lg:px-8 lg:py-2.5"
+          className="mt-6 inline-block rounded-lg bg-[#25975B] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#1f7f4c] lg:mt-8 lg:px-8 lg:py-2.5"
         >
           Request A Consultation
         </a>
@@ -364,13 +364,13 @@ export default function CircularCarousel() {
           className="relative z-20 px-4 text-center"
           style={{ marginTop: `calc(var(--cs) * ${INFO_PANEL_MARGIN_TOP}px)` }}
         >
-          <h3 className="mb-1 font-opensans text-lg leading-none font-semibold tracking-normal text-[#25975B] lg:text-[24px]">
+          <h3 className="mb-2 font-opensans text-lg leading-relaxed font-semibold tracking-normal text-[#25975B] lg:text-[24px]">
             {centerCard.title}
           </h3>
-          <p className="mx-auto max-w-md font-opensans text-sm leading-snug font-normal tracking-normal text-white/70 lg:text-[16px] lg:leading-none">
+          <p className="mx-auto max-w-md font-opensans text-sm leading-relaxed font-normal tracking-normal text-white/70 lg:text-[16px] lg:leading-relaxed">
             {centerCard.desc}
           </p>
-          <p className="mx-auto mt-1 max-w-md font-opensans text-base leading-snug font-semibold tracking-normal text-white lg:text-[20px] lg:leading-none">
+          <p className="mx-auto mt-1 max-w-md font-opensans text-base leading-relaxed font-semibold tracking-normal text-white lg:text-[20px] lg:leading-relaxed">
             {centerCard.tags.join(" • ")}
           </p>
         </div>

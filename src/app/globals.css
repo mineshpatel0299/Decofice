@@ -27,6 +27,18 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Chrome ties page zoom to devicePixelRatio, so a ~125% zoom (at the
+   otherwise-common 1x DPR desktop case) reports as ~1.25dppx. The hero
+   heading's viewport-relative breakpoint sizes stay put across that zoom
+   range (no CSS width-based breakpoint change), so it reads noticeably
+   larger than at 100% zoom — this nudges it back down a touch. Bounded to
+   <1.5dppx so real high-DPI (Retina, 2dppx+) screens are unaffected. */
+@media (min-resolution: 1.2dppx) and (max-resolution: 1.49dppx) {
+  .hero-heading {
+    font-size: 0.85em;
+  }
+}
+
 .leaflet-tooltip.location-tooltip {
   background: transparent;
   border: none;

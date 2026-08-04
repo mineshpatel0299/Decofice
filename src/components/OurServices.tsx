@@ -86,7 +86,7 @@ export default function OurServices() {
       </div>
 
       {/* Accordion Cards */}
-      <div className="relative mx-auto flex h-[420px] w-full max-w-7xl justify-start overflow-x-auto px-5 md:h-[480px] md:justify-center md:overflow-visible">
+      <div className="relative mx-auto flex h-[420px] w-full max-w-7xl justify-start items-center overflow-x-auto px-5 md:h-[480px] md:justify-center md:overflow-visible">
         {SERVICES.map((service, idx) => {
           const isActive = service.id === activeId;
           return (
@@ -101,14 +101,14 @@ export default function OurServices() {
               style={{
                 zIndex: isActive ? 50 : 50 - idx - 1,
                 width: "340px",
-                maxWidth: "85vw"
+                maxWidth: "85vw",
+                height: "100%"
               }}
             >
-              {/* Inner element: pops toward the viewer (scale + lift) to
-                  read as "coming to front" rather than sliding sideways. */}
+              {/* Inner element: pops toward the viewer (scale) */}
               <div
-                className={`group relative h-full w-full origin-bottom overflow-hidden rounded-[24px] bg-[#0F0F0F] shadow-[0_0_40px_rgba(0,0,0,0.6)] transition-transform duration-500 ease-out ${
-                  isActive ? "scale-105 md:scale-110 -translate-y-2 md:-translate-y-4" : "scale-100 translate-y-0"
+                className={`group relative h-full w-full origin-center overflow-hidden rounded-[24px] bg-[#0F0F0F] shadow-[0_0_40px_rgba(0,0,0,0.6)] transition-transform duration-500 ease-out ${
+                  isActive ? "scale-105 md:scale-110" : "scale-100"
                 }`}
               >
                 <Image
