@@ -51,7 +51,7 @@ export default function Presence() {
         <h2 className="text-center font-sans text-4xl md:text-[56px] leading-[1.2] font-bold tracking-normal text-white mb-6">
           A Presence That Continues To <span className="font-serif italic text-[#25975B] font-medium">Grow</span>
         </h2>
-        <p className="mx-auto mt-4 max-w-3xl text-base leading-relaxed text-white/80 md:text-lg text-center mb-10">
+        <p className="mx-auto max-w-3xl text-base leading-relaxed text-white/80 md:text-lg text-center mb-10">
           Every new location represents another partnership built on trust, thoughtful
           design and uncompromising execution.
         </p>

@@ -186,13 +186,13 @@ export default function Hero() {
         }}
       />
 
-      {/* Positioning frame matching the content column's max-w-[1800px] container,
+      {/* Positioning frame matching the content column's full-width container,
           so the glass card's right offset stays in sync with the left content's
-          margin instead of drifting apart on screens wider than 1800px */}
-      <div className="pointer-events-none absolute inset-0 mx-auto hidden max-w-[1800px] lg:block">
+          margin at every screen width */}
+      <div className="pointer-events-none absolute inset-0 hidden lg:block">
         {/* Glass card — wrapper with clipPath to mask the bottom edge, preventing it from showing below the house while sliding up */}
         <div
-          className="pointer-events-auto absolute top-[24.56vh] right-[11.67vw] z-10 h-[45.56vh] w-[25.42vw]"
+          className="pointer-events-auto absolute top-[24.56vh] right-[calc(clamp(2rem,6vw,6rem)+3rem)] z-10 h-[45.56vh] w-[25.42vw]"
           style={{ clipPath: "polygon(-20% -20%, 120% -20%, 120% 100%, -20% 100%)" }}
         >
           <div
@@ -301,7 +301,7 @@ export default function Hero() {
 
       <Navbar />
 
-      <div className="pointer-events-none relative mx-auto flex min-h-dvh max-w-[1800px] flex-col px-8 pt-10 pb-8 sm:px-12 lg:z-30 lg:min-h-screen lg:pt-[14.69vh] lg:pb-16 lg:px-[11.67vw]">
+      <div className="pointer-events-none relative flex min-h-dvh w-full flex-col px-8 pt-10 pb-8 sm:px-12 lg:z-30 lg:min-h-screen lg:pt-[14.69vh] lg:pb-16 lg:px-[clamp(2rem,6vw,6rem)]">
         <div className="pointer-events-none flex flex-1 flex-col items-center justify-start pt-10 text-center lg:pt-[5.87vh] lg:items-start lg:text-left">
           <h1 className="hero-heading font-serif text-[38px] leading-[1.1] font-bold tracking-normal text-[#f5f0e6] sm:text-6xl md:text-7xl lg:text-[72px] xl:text-[86px] 2xl:text-[100px]">
             <span className="inline-block overflow-hidden align-top lg:block" style={{ paddingBottom: '0.1em', marginBottom: '-0.1em' }}>
@@ -315,7 +315,7 @@ export default function Hero() {
             </span>
           </h1>
 
-          <p ref={pRef} className="mt-6 max-w-xs text-xs leading-relaxed text-white/85 sm:max-w-sm sm:text-sm lg:mt-8 lg:max-w-lg lg:text-[24px] lg:leading-[1.6]">
+          <p ref={pRef} className="mt-6 max-w-xs text-xs leading-relaxed text-white/85 sm:max-w-sm sm:text-sm lg:mt-8 lg:max-w-lg lg:text-[19px] lg:leading-[1.55]">
             Architecture, Interior Design, Construction &amp; Project
             Management under one roof.
           </p>
@@ -400,13 +400,13 @@ export default function Hero() {
           <div ref={ctaRef} className="pointer-events-auto relative z-40 top-8 mt-[max(2rem,calc(75.6vh-515px))] flex w-full max-w-sm flex-col items-center gap-2.5 lg:top-0 lg:z-auto lg:mt-10 lg:w-auto lg:max-w-none lg:flex-row lg:flex-wrap lg:items-center lg:gap-4">
             <a
               href="#start"
-              className="flex h-7 w-34 items-center justify-center rounded-lg bg-[#25975B] px-3 py-2 text-center text-[11px] font-semibold text-white transition-colors hover:bg-[#456b52] lg:h-12 lg:w-48.25 lg:rounded-lg lg:px-7 lg:py-3 lg:text-sm"
+              className="flex h-7 w-34 items-center justify-center rounded-lg bg-[#25975B] px-3 py-2 text-center text-[11px] font-semibold text-white transition-colors hover:bg-[#456b52] lg:h-10.5 lg:w-42 lg:rounded-lg lg:px-6 lg:py-2.5 lg:text-[13px]"
             >
               Start Your Project
             </a>
             <a
               href="#consultation"
-              className="flex h-7 w-34 items-center justify-center rounded-lg border border-white/70 px-3 py-2 text-center text-[11px] font-semibold text-white transition-colors hover:bg-white/10 lg:h-12 lg:w-48.25 lg:rounded-lg lg:px-7 lg:py-3 lg:text-sm"
+              className="flex h-7 w-34 items-center justify-center rounded-lg border border-white/70 px-3 py-2 text-center text-[11px] font-semibold text-white transition-colors hover:bg-white/10 lg:h-10.5 lg:w-42 lg:rounded-lg lg:px-6 lg:py-2.5 lg:text-[13px]"
             >
               Book Consultation
             </a>

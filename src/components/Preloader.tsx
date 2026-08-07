@@ -18,19 +18,13 @@ export default function Preloader() {
 
     const tl = gsap.timeline({ delay: 0.3 });
 
-    // Logo pops in at its normal size, centered
-    tl.fromTo(
-      logoRef.current,
-      { scale: 0 },
-      { scale: 1, duration: 0.6, ease: "back.out(1.7)" }
-    )
-      // Hold briefly, then zoom the logo until it fills the whole screen
-      .to(logoRef.current, {
-        scale: coverScale,
-        duration: 1.6,
-        ease: "power2.in",
-        delay: 0.3,
-      })
+    // Hold briefly, then zoom the logo until it fills the whole screen
+    tl.to(logoRef.current, {
+      scale: coverScale,
+      duration: 1.6,
+      ease: "power2.in",
+      delay: 0.9,
+    })
       // Cut to the homepage once the zoom has taken over the screen
       .to(
         preloaderRef.current,

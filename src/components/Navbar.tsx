@@ -32,7 +32,7 @@ export default function Navbar() {
   return (
     <header
       ref={headerRef}
-      className="absolute inset-x-0 top-0 z-50 mx-auto max-w-[1800px] px-8 pt-8 opacity-0 sm:px-12 lg:px-[11.67vw]"
+      className="absolute inset-x-0 top-0 z-50 w-full px-8 pt-8 opacity-0 sm:px-12 lg:px-[clamp(2rem,6vw,6rem)]"
     >
       <div className="flex items-center justify-between">
         <a href="/" className="shrink-0 text-white">
